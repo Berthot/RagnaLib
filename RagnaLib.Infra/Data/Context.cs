@@ -19,8 +19,6 @@ namespace RagnaLib.Infra.Data
         public DbSet<Item> Items { get; set; }
         public DbSet<Location> Maps { get; set; }
         public DbSet<Monster> Monsters { get; set; }
-        public DbSet<Status> Status { get; set; }
-        
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

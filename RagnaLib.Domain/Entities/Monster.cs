@@ -6,12 +6,19 @@ namespace RagnaLib.Domain.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        
+        public int Level { get; set; }
+        public int Health { get; set; }
+        public int Size { get; set; }
+        public int Race { get; set; }
         public string GifUrl { get; set; }
         public int ElementId { get; set; }
-        public List<MonsterPerLocationMap> MonsterPerLocationMaps { get; set; }
-        public List<MonsterItemMap> MonsterItemMaps { get; set; }
         
+        public IEnumerable<MonsterPerLocationMap> MonsterPerLocationMaps { get; set; }
+        
+        public IEnumerable<MonsterItemMap> MonsterItemMaps { get; set; }
         public virtual Element Element { get; set; }
+        
 
     }
 }

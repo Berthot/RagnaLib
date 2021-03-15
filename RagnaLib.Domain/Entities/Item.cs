@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace RagnaLib.Domain.Entities
 {
     public class Item
@@ -19,6 +21,8 @@ namespace RagnaLib.Domain.Entities
         public ItemType ItemTypeId { get; set; }
 
         public ItemType ItemType { get; set; }
+        
+        public IEnumerable<MonsterItemMap> MonsterItemMaps { get; set; }
     }
 }
 // "id": 4425,
