@@ -1,4 +1,4 @@
-namespace RagnaLib.Domain.Data.DbSeed
+namespace RagnaLib.Infra.Data.DbSeed
 {
     public class ItemTypeSeed
     {
