@@ -17,7 +17,7 @@ namespace RagnaLib.Infra.Data
         
         public DbSet<Element> Elements { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<Map> Maps { get; set; }
+        public DbSet<Location> Maps { get; set; }
         public DbSet<Monster> Monsters { get; set; }
         public DbSet<Status> Status { get; set; }
         
