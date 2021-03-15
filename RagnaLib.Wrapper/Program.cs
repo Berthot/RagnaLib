@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using RagnaLib.Wrapper.CsvWrapper;
+using RagnaLib.Wrapper.CsvWrapper.CsvModels;
 using RagnaLib.Wrapper.Factory;
 using RagnaLib.Wrapper.ModelsAPI;
 
@@ -11,41 +12,37 @@ namespace RagnaLib.Wrapper
     class Program
     {
         private static WriterCsv _writerCsv = new WriterCsv();
+        private static ReadCsv _readCsv = new ReadCsv();
         private static ApiFactory _factory = new ApiFactory();
 
         public static async Task Main(string[] args)
         {
-            var csv = new WriterCsv();
-            // var id = "1001";
-            // start 1001 -- end: 3508
-            // foreach (var id in Enumerable.Range(1001, 1500))
-            foreach (var id in Enumerable.Range(1001, 3508))
-                // foreach (var id in Enumerable.Range(1521, 1560))
-                // foreach (var id in Enumerable.Range(2001, 2500))
-                // foreach (var id in Enumerable.Range(2501, 3000))
-                // foreach (var id in Enumerable.Range(3001, 3508))
-                // foreach (var id in Enumerable.Range(1001, 3508))
-            {
-                try
-                {
-                    var ragnaApi = new RagnaplaceApi();
-                    var monst = ragnaApi.GetMonster(id.ToString());
-                    await WriteMonster(monst);
-                    await WriteDrop(monst);
-                    await WriteMaps(monst);
-                    Console.WriteLine($"ID: {id} --- Name: {monst.Name}");
-                }
-                catch (Exception)
-                {
-                    await WriteError($"{id}");
-                }
-                finally
-                {
-                    await WriteLog($"{id},OK");
+            // // var id = "1001";
+            // // start 1001 -- end: 3508
+            // foreach (var id in Enumerable.Range(1001, 3508))
+            // {
+            //     try
+            //     {
+            //         var ragnaApi = new RagnaplaceApi();
+            //         var monst = ragnaApi.GetMonster(id.ToString());
+            //         await WriteMonster(monst);
+            //         await WriteDrop(monst);
+            //         await WriteMaps(monst);
+            //         Console.WriteLine($"ID: {id} --- Name: {monst.Name}");
+            //     }
+            //     catch (Exception)
+            //     {
+            //         await WriteError($"{id}");
+            //     }
+            //     finally
+            //     {
+            //         await WriteLog($"{id},OK");
+            //
+            //         Thread.Sleep(120);
+            //     }
+            // }
+            var monsters = _readCsv.ReadDynamicClass<MonsterCsv>("monster.csv");
 
-                    Thread.Sleep(120);
-                }
-            }
         }
 
         private static async Task WriteLog(string id)
