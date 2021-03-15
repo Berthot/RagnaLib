@@ -37,7 +37,6 @@ namespace RagnaLib.Infra.Data.Mapping
                 .HasForeignKey(z => z.ElementId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_MONSTER_ELEMENT");
-
         }
     }
     // public int Id { get; set; }

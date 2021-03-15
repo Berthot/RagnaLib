@@ -12,6 +12,6 @@ namespace RagnaLib.Domain.Entities
         
         public string MapCleanUrl { get; set; } // https://www.divine-pride.net/img/map/raw/gef_fild10
         
-        public IEnumerable<Monster> Monsters { get; set; }
+        public IEnumerable<MonsterPerLocationMap> MonsterPerLocationMaps { get; set; }
     }
 }

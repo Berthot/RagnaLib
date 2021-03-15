@@ -18,8 +18,6 @@ namespace RagnaLib.Domain.Entities
         
         public IEnumerable<MonsterItemMap> MonsterItemMaps { get; set; }
         public virtual Element Element { get; set; }
-        
-
     }
 }
 
