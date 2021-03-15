@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CsvHelper.Excel.Core" Version="22.1.1" />
+      <PackageReference Include="MongoDB.Bson" Version="2.12.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+      <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.2" />
+    </ItemGroup>
+
+</Project>

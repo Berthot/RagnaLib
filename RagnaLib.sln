@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RagnaLib.Domain", "RagnaLib.Domain\RagnaLib.Domain.csproj", "{20294E07-5132-4B2A-A8DC-79C1FC0C025D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RagnaLib.Wrapper", "RagnaLib.Wrapper\RagnaLib.Wrapper.csproj", "{5D35528F-27F5-4272-816F-1F89C5464FC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RagnaLib.Infra", "RagnaLib.Infra\RagnaLib.Infra.csproj", "{B4BB3D02-46F3-4F60-B6F7-DCC659226474}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{20294E07-5132-4B2A-A8DC-79C1FC0C025D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20294E07-5132-4B2A-A8DC-79C1FC0C025D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20294E07-5132-4B2A-A8DC-79C1FC0C025D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20294E07-5132-4B2A-A8DC-79C1FC0C025D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D35528F-27F5-4272-816F-1F89C5464FC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D35528F-27F5-4272-816F-1F89C5464FC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D35528F-27F5-4272-816F-1F89C5464FC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D35528F-27F5-4272-816F-1F89C5464FC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4BB3D02-46F3-4F60-B6F7-DCC659226474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4BB3D02-46F3-4F60-B6F7-DCC659226474}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4BB3D02-46F3-4F60-B6F7-DCC659226474}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4BB3D02-46F3-4F60-B6F7-DCC659226474}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "RagnaCrawling": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "LOCAL_DB": "Host=localhost;Port=5432;Username=bertho;Password=idkfa123;Database=ragnarok"
+      }
+    }
+  }
+}
