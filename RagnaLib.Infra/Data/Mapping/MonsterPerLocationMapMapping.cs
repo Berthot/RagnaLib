@@ -15,13 +15,23 @@ namespace RagnaLib.Infra.Data.Mapping
             entity.Property(x => x.Id)
                 .ValueGeneratedOnAdd()
                 .UseIdentityColumn();
-            entity.Property(x => x.Quantity)
-                .IsRequired();
             
+            entity.Property(x => x.Quantity)
+                .HasDefaultValue(0)
+                .IsRequired();
+
+            entity.HasOne(x => x.Monster)
+                .WithMany(y => y.MonsterPerLocationMaps)
+                .HasForeignKey(z => z.MonsterId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_MONSTERPERLOCATION_MONSTER");
+
+            entity.HasOne(x => x.Location)
+                .WithMany(y => y.MonsterPerLocationMaps)
+                .HasForeignKey(z => z.LocationId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_MONSTERPERLOCATION_LOCATION");
             
         }
-        // public int MonsterId { get; set; }
-        // public int LocationId { get; set; }
-        // public int Quantity { get; set; }
     }
 }
