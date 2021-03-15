@@ -1,17 +1,20 @@
+using System;
+
 namespace RagnaLib.Domain.Entities
 {
     public class Element
     {
-        public string Name { get; set; }
-        public string Neutral { get; set; }
-        public string Water { get; set; }
-        public string Earth { get; set; }
-        public string Fire { get; set; }
-        public string Wind { get; set; }
-        public string Poison { get; set; }
-        public string Holy { get; set; }
-        public string Shadow { get; set; }
-        public string Ghost { get; set; }
-        public string Undead { get; set; }
+        public string Type { get; set; }
+        public short Level { get; set; }
+        public short Neutral { get; set; }
+        public short Water { get; set; }
+        public short Earth { get; set; }
+        public short Fire { get; set; }
+        public short Wind { get; set; }
+        public short Poison { get; set; }
+        public short Holy { get; set; }
+        public short Shadow { get; set; }
+        public short Ghost { get; set; }
+        public short Undead { get; set; }
     }
 }
