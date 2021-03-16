@@ -12,7 +12,8 @@ namespace RagnaLib.Wrapper
                 NameId = csvModel.IdMap,
                 Name = csvModel.DescName,
                 MapUrl = $"https://www.divine-pride.net/img/map/original/{csvModel.IdMap}",
-                MapCleanUrl = $"https://www.divine-pride.net/img/map/raw/{csvModel.IdMap}"
+                MapCleanUrl = $"https://www.divine-pride.net/img/map/raw/{csvModel.IdMap}",
+                Type = csvModel.TypeMap
             };
         }
     }
