@@ -13,7 +13,6 @@ namespace RagnaLib.Infra.Data.Mappings
             entity.ToTable("ItemType");
 
             entity.Property(x => x.Id)
-                .ValueGeneratedOnAdd()
                 .UseIdentityColumn();
 
             entity.Property(x => x.Name)

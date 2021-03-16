@@ -16,6 +16,9 @@ namespace RagnaLib.Infra.Data.Mappings
                 .ValueGeneratedOnAdd()
                 .UseIdentityColumn();
 
+            entity.Property(x => x.NameId)
+                .IsRequired();
+
             entity.Property(x => x.Name)
                 .IsRequired();
 
