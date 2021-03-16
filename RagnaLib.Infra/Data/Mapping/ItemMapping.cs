@@ -28,6 +28,12 @@ namespace RagnaLib.Infra.Data.Mapping
             entity.Property(x => x.CardImageUrl);
 
             entity.Property(x => x.Description);
+
+            entity.HasOne(x => x.ItemType)
+                .WithMany(y => y.Items)
+                .HasForeignKey(z => z.ItemTypeId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_ITEM_ITEMTYPE");
             
         }
     }
