@@ -30,6 +30,10 @@ namespace RagnaLib.Infra.Data.Mappings
             entity.Property(x => x.Size)
                 .IsRequired();
 
+            entity.Property(x => x.HasDrop);
+
+            entity.Property(x => x.HasLocation);
+
             entity.Property(x => x.GifUrl);
 
             entity.HasOne(x => x.Element)

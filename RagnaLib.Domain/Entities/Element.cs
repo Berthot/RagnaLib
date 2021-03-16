@@ -5,8 +5,8 @@ namespace RagnaLib.Domain.Entities
     public class Element
     {
         public int Id { get; set; }
-        public string Type { get; set; }
-        public short Level { get; set; }
+        public string Name { get; set; }
+        public short Tier { get; set; }
         public short Neutral { get; set; }
         public short Water { get; set; }
         public short Earth { get; set; }

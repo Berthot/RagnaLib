@@ -12,9 +12,11 @@ namespace RagnaLib.Domain.Entities
         public int Race { get; set; }
         public string GifUrl { get; set; }
         public int ElementId { get; set; }
+        public virtual Element Element { get; set; }
+        public bool HasDrop { get; set; }
+        public bool HasLocation { get; set; }
         public IEnumerable<MonsterPerLocationMap> MonsterPerLocationMaps { get; set; }
         public IEnumerable<MonsterItemMap> MonsterItemMaps { get; set; }
-        public virtual Element Element { get; set; }
     }
 }
 

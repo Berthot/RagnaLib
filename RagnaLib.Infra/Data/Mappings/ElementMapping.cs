@@ -16,10 +16,10 @@ namespace RagnaLib.Infra.Data.Mappings
                 .ValueGeneratedOnAdd()
                 .UseIdentityColumn();
 
-            entity.Property(x => x.Type)
+            entity.Property(x => x.Name)
                 .IsRequired();
 
-            entity.Property(x => x.Level)
+            entity.Property(x => x.Tier)
                 .IsRequired();
 
             entity.Property(x => x.Neutral)
