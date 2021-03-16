@@ -54,7 +54,7 @@ namespace RagnaLib.Infra.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     MapUrl = table.Column<string>(type: "text", nullable: true),
                     MapCleanUrl = table.Column<string>(type: "text", nullable: true),
-                    Type = table.Column<string>(type: "text", nullable: false)
+                    Type = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {

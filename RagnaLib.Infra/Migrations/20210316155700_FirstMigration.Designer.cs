@@ -9,7 +9,7 @@ using RagnaLib.Infra.Data;
 namespace RagnaLib.Infra.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210316151859_FirstMigration")]
+    [Migration("20210316155700_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -193,7 +193,6 @@ namespace RagnaLib.Infra.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Type")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id")

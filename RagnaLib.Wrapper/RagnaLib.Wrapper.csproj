@@ -7,9 +7,22 @@
 
     <ItemGroup>
       <PackageReference Include="CsvHelper.Excel.Core" Version="22.1.1" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
       <PackageReference Include="MongoDB.Bson" Version="2.12.0" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
       <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Models" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\RagnaLib.Domain\RagnaLib.Domain.csproj" />
+      <ProjectReference Include="..\RagnaLib.Infra\RagnaLib.Infra.csproj" />
     </ItemGroup>
 
 </Project>
