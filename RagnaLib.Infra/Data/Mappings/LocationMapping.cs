@@ -2,11 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RagnaLib.Domain.Entities;
 
-namespace RagnaLib.Infra.Data.Mapping
+namespace RagnaLib.Infra.Data.Mappings
 {
-    public class LocationMapping
+    public static class LocationMapping
     {
-        public LocationMapping(EntityTypeBuilder<Location> entity)
+        public static void MappingLocation(this EntityTypeBuilder<Location> entity)
         {
             entity.HasKey(x => x.Id)
                 .HasName("PK_LOCATION");
@@ -18,12 +18,12 @@ namespace RagnaLib.Infra.Data.Mapping
 
             entity.Property(x => x.Name)
                 .IsRequired();
-            
-            entity.Property(x => x.MapUrl);
-            
-            entity.Property(x => x.MapCleanUrl);
 
+            entity.Property(x => x.MapUrl);
+
+            entity.Property(x => x.MapCleanUrl);
         }
+
         // public string Name { get; set; }
         // public string Id { get; set; }
         // public string MapUrl { get; set; } // https://www.divine-pride.net/img/map/original/gef_fild10

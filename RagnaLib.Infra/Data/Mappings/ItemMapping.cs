@@ -2,11 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RagnaLib.Domain.Entities;
 
-namespace RagnaLib.Infra.Data.Mapping
+namespace RagnaLib.Infra.Data.Mappings
 {
-    public class ItemMapping
+    public static class ItemMapping
     {
-        public ItemMapping(EntityTypeBuilder<Item> entity)
+        public static void MappingItem(this EntityTypeBuilder<Item> entity)
         {
             entity.HasKey(x => x.Id)
                 .HasName("PK_ITEM");
@@ -35,8 +35,12 @@ namespace RagnaLib.Infra.Data.Mapping
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_ITEM_ITEMTYPE");
             
+            
+            entity.HasOne(x => x.SubType)
+                .WithMany(y => y.Items)
+                .HasForeignKey(z => z.SubTypeId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_ITEM_SUBTYPE");
         }
     }
-    // public ItemType ItemTypeId { get; set; }
-    // public ItemType ItemType { get; set; }
 }

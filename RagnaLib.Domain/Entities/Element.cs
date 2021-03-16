@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace RagnaLib.Domain.Entities
@@ -17,7 +16,7 @@ namespace RagnaLib.Domain.Entities
         public short Shadow { get; set; }
         public short Ghost { get; set; }
         public short Undead { get; set; }
-        
+
         public IEnumerable<Monster> Monsters { get; set; }
     }
 }

@@ -2,11 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RagnaLib.Domain.Entities;
 
-namespace RagnaLib.Infra.Data.Mapping
+namespace RagnaLib.Infra.Data.Mappings
 {
-    public class MonsterMapping
+    public static class MonsterMapping
     {
-        public MonsterMapping(EntityTypeBuilder<Monster> entity)
+        public static void MappingMonster(this EntityTypeBuilder<Monster> entity)
         {
             entity.HasKey(x => x.Id)
                 .HasName("PK_MONSTER");
@@ -17,16 +17,16 @@ namespace RagnaLib.Infra.Data.Mapping
 
             entity.Property(x => x.Name)
                 .IsRequired();
-            
+
             entity.Property(x => x.Level)
                 .IsRequired();
-            
+
             entity.Property(x => x.Health)
                 .IsRequired();
-            
+
             entity.Property(x => x.Race)
                 .IsRequired();
-            
+
             entity.Property(x => x.Size)
                 .IsRequired();
 
@@ -39,6 +39,7 @@ namespace RagnaLib.Infra.Data.Mapping
                 .HasConstraintName("FK_MONSTER_ELEMENT");
         }
     }
+
     // public int Id { get; set; }
     // public string Name { get; set; }
     // public string GifUrl { get; set; }
