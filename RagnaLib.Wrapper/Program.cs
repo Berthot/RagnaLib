@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using RagnaLib.Wrapper.CsvWrapper;
 using RagnaLib.Wrapper.CsvWrapper.CsvModels;
@@ -15,32 +17,36 @@ namespace RagnaLib.Wrapper
 
         public static async Task Main(string[] args)
         {
-            // // var id = "1001";
-            // // start 1001 -- end: 3508
-            // foreach (var id in Enumerable.Range(1001, 3508))
-            // {
-            //     try
-            //     {
-            //         var ragnaApi = new RagnaplaceApi();
-            //         var monst = ragnaApi.GetMonster(id.ToString());
-            //         await WriteMonster(monst);
-            //         await WriteDrop(monst);
-            //         await WriteMaps(monst);
-            //         Console.WriteLine($"ID: {id} --- Name: {monst.Name}");
-            //     }
-            //     catch (Exception)
-            //     {
-            //         await WriteError($"{id}");
-            //     }
-            //     finally
-            //     {
-            //         await WriteLog($"{id},OK");
-            //
-            //         Thread.Sleep(120);
-            //     }
-            // }
+            // await GetDbByApi();
             var monsters = _readCsv.ReadDynamicClass<MonsterCsv>("monster.csv");
+        }
 
+        private static async Task GetDbByApi()
+        {
+            // var id = "1001";
+            // start 1001 -- end: 3508
+            foreach (var id in Enumerable.Range(1001, 3508))
+            {
+                try
+                {
+                    var ragnaApi = new RagnaplaceApi();
+                    var monst = ragnaApi.GetMonster(id.ToString());
+                    await WriteMonster(monst);
+                    await WriteDrop(monst);
+                    await WriteMaps(monst);
+                    Console.WriteLine($"ID: {id} --- Name: {monst.Name}");
+                }
+                catch (Exception)
+                {
+                    await WriteError($"{id}");
+                }
+                finally
+                {
+                    await WriteLog($"{id},OK");
+
+                    Thread.Sleep(120);
+                }
+            }
         }
 
         private static async Task WriteLog(string id)
