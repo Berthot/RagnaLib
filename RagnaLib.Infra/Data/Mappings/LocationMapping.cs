@@ -21,6 +21,9 @@ namespace RagnaLib.Infra.Data.Mappings
 
             entity.Property(x => x.Name)
                 .IsRequired();
+            
+            entity.Property(x => x.Type)
+                .IsRequired();
 
             entity.Property(x => x.MapUrl);
 
