@@ -43,7 +43,7 @@ namespace RagnaLib.Infra.Data.Mappings
             entity.Property(x => x.Holy)
                 .IsRequired();
 
-            entity.Property(x => x.Shadow)
+            entity.Property(x => x.Dark)
                 .IsRequired();
 
             entity.Property(x => x.Ghost)

@@ -9,6 +9,7 @@ using RagnaLib.Wrapper.CsvWrapper;
 using RagnaLib.Wrapper.CsvWrapper.CsvModels;
 using RagnaLib.Wrapper.Factory;
 using RagnaLib.Wrapper.ModelsAPI;
+using Element = RagnaLib.Domain.Entities.Element;
 
 namespace RagnaLib.Wrapper
 {
@@ -31,14 +32,6 @@ namespace RagnaLib.Wrapper
             _readCsv = new ReadCsv();
         }
 
-        public List<Location> CreateLocationsByCsv()
-        {
-            var csv = _readCsv.ReadDynamicClass<LocationCsv>("maps_ragnaplace.csv");
-            return csv.Select(x => _factory.GetLocationEntity(x)).OrderBy(x=>x.Name).ToList();
-
-        }
-
-        
         public async Task GetDbByApi()
         {
             // var id = "1001";
@@ -102,17 +95,49 @@ namespace RagnaLib.Wrapper
 
         public void CreateLocationRange(List<Location> locations)
         {
-            using var transaction = _context.Database.BeginTransaction();
+            // using var transaction = _context.Database.BeginTransaction();
             try
             {
                 _repo.CreateLocationRange(locations);
                 _repo.SaveChanges();
-                transaction.Commit();
+                // transaction.Commit();
 
             }
             catch (Exception ex)
             {
-                transaction.Rollback();
+                // transaction.Rollback();
+                Console.WriteLine(ex);
+                throw;
+            }
+        }
+        
+        public List<Location> CreateLocationsByCsv()
+        {
+            var csv = _readCsv.ReadDynamicClass<LocationCsv>("maps_ragnaplace.csv");
+            return csv.Select(x => _factory.GetLocationEntity(x)).OrderBy(x=>x.Name).ToList();
+
+        }
+
+        public List<Element> CreateElementsByCsv()
+        {
+            var csv = _readCsv.ReadDynamicClass<ElementCsv>("elements_ragnarok.csv");
+            return csv.Select(x => _factory.GetElementEntity(x)).OrderBy(x=>x.Name).ToList();
+
+        }
+
+        public void CreateElementRange(List<Element> elements)
+        {
+            // using var transaction = _context.Database.BeginTransaction();
+            try
+            {
+                _repo.CreateElementRange(elements);
+                _repo.SaveChanges();
+                // transaction.Commit();
+
+            }
+            catch (Exception ex)
+            {
+                // transaction.Rollback();
                 Console.WriteLine(ex);
                 throw;
             }

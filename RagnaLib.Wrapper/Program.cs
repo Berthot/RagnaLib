@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
 using RagnaLib.Infra.Data;
+using RagnaLib.Wrapper.CsvWrapper;
+using RagnaLib.Wrapper.CsvWrapper.CsvModels;
 
 namespace RagnaLib.Wrapper
 {
@@ -10,14 +12,21 @@ namespace RagnaLib.Wrapper
 
         public static async Task Main(string[] args)
         {
-            // await GetDbByApi();
-            // SetLocations();
-            // var monsters = _readCsv.ReadDynamicClass<MonsterCsv>("monster.csv");
+            SetLocations();
+            SetElements();
+            // var monsters = new ReadCsv()
+                // .ReadDynamicClass<ElementCsv>("elements_ragnarok.csv");
+        }
+
+        private static void SetElements()
+        {
+            var elements = Service.CreateElementsByCsv();
+            Service.CreateElementRange(elements);
         }
 
         private static void SetLocations()
         {
-            var locations = Service.CreateLocationsByCsv();
+            var locations = Service.CreateLocationsByCsv(); // TODO enable transaction
             Service.CreateLocationRange(locations);
         }
 

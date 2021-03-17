@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+using RagnaLib.Domain.Entities;
 
-namespace RagnaLib.Domain.Entities
+namespace RagnaLib.Wrapper.CsvWrapper.CsvModels
 {
-    public class Element
+    public class ElementCsv
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public short Tier { get; set; }
         public short Neutral { get; set; }
@@ -14,10 +14,21 @@ namespace RagnaLib.Domain.Entities
         public short Wind { get; set; }
         public short Poison { get; set; }
         public short Holy { get; set; }
-        public short Dark { get; set; } // sombrio
-        public short Ghost { get; set; } // fanstama
-        public short Undead { get; set; } // morto-vivo
-
-        public IEnumerable<Monster> Monsters { get; set; }
+        public short Dark { get; set; }
+        public short Ghost { get; set; }
+        public short Undead { get; set; }
+        
+        /*
+        Neutral
+        Water
+        Earth
+        Fire
+        Wind
+        Poison
+        Holy
+        Dark
+        Ghost
+        Undead
+         */
     }
 }

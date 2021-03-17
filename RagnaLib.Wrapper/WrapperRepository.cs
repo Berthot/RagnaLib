@@ -23,5 +23,11 @@ namespace RagnaLib.Wrapper
         {
             _context.SaveChanges();
         }
+
+        public void CreateElementRange(List<Element> elements)
+        {
+            _context.Elements.AddRange(elements);
+
+        }
     }
 }
