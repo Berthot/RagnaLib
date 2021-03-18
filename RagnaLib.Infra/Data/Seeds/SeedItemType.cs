@@ -3,9 +3,9 @@ using RagnaLib.Domain.Entities;
 
 namespace RagnaLib.Infra.Data.Seeds
 {
-    public static class ItemTypeSeed
+    public static class SeedItemType
     {
-        public static List<ItemType> SeedItemType()
+        public static List<ItemType> SeedsItemType()
         {
             return new List<ItemType>()
             {

@@ -9,7 +9,8 @@ namespace RagnaLib.Infra.Data
         public static void SetSeed(this ModelBuilder builder)
         {
             
-            builder.Entity<ItemType>().HasData(ItemTypeSeed.SeedItemType());
+            builder.Entity<ItemType>().HasData(SeedItemType.SeedsItemType());
+            builder.Entity<Race>().HasData(SeedRace.SeedsRace());
             
         }
     }

@@ -18,13 +18,12 @@ namespace RagnaLib.Infra.Data.Mappings
             entity.Property(x => x.Name)
                 .IsRequired();
 
+            entity.Property(x => x.DbName);
+
             entity.Property(x => x.Level)
                 .IsRequired();
 
             entity.Property(x => x.Health)
-                .IsRequired();
-
-            entity.Property(x => x.Race)
                 .IsRequired();
 
             entity.Property(x => x.Size)
@@ -41,6 +40,12 @@ namespace RagnaLib.Infra.Data.Mappings
                 .HasForeignKey(z => z.ElementId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_MONSTER_ELEMENT");
+
+            entity.HasOne(x => x.Race)
+                .WithMany(y => y.Monsters)
+                .HasForeignKey(z => z.RaceId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_MONSTER_RACE");
         }
     }
 
