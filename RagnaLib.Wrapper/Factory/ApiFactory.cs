@@ -27,10 +27,10 @@ namespace RagnaLib.Wrapper.Factory
                 var text =
                     $"\"{monster.Id}\"," +
                     $"\"{monster.Name}\"," +
-                    $"\"{monster.Stats.Hp}\"," +
-                    $"\"{monster.Stats.Level}\"," +
-                    $"\"{monster.Stats.Race}\"," +
-                    $"\"{monster.Stats.Size}\"," +
+                    // $"\"{monster.Stats.Hp}\"," +
+                    // $"\"{monster.Stats.Level}\"," +
+                    // $"\"{monster.Stats.Race}\"," +
+                    // $"\"{monster.Stats.Size}\"," +
                     $"\"{monster.GifUrl}\"," +
                     $"\"{itemsString}\"," +
                     $"\"{mapsString}\"," +
@@ -48,11 +48,12 @@ namespace RagnaLib.Wrapper.Factory
         {
             try
             {
-                var mapsString =
-                    monster.SpawnMaps.Select(x => x.MapId)
-                        .Aggregate("", (current, id) =>
-                            $"{current}{id.ToString()}|");
-                return mapsString;
+                // var mapsString =
+                //     monster.SpawnMaps.Select(x => x.MapId)
+                //         .Aggregate("", (current, id) =>
+                //             $"{current}{id.ToString()}|");
+                // return mapsString;
+                return null;
             }
             catch (Exception)
             {
@@ -136,14 +137,15 @@ namespace RagnaLib.Wrapper.Factory
         {
             try
             {
-                var text =
-                    $"\"{mSpawn.MapId}\"," +
-                    $"\"{mSpawn.MapName}\"," +
-                    $"\n";
-                if (_inMemory.Contains(text))
-                    return "";
-                _inMemory.Add(text);
-                return text;
+                return null;
+                // var text =
+                //     $"\"{mSpawn.MapId}\"," +
+                //     $"\"{mSpawn.MapName}\"," +
+                //     $"\n";
+                // if (_inMemory.Contains(text))
+                //     return "";
+                // _inMemory.Add(text);
+                // return text;
             }
             catch (Exception)
             {
