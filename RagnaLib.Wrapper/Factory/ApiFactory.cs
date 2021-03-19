@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using RagnaLib.Wrapper.CsvWrapper.CsvModels;
 using RagnaLib.Wrapper.ModelsAPI;
 
 namespace RagnaLib.Wrapper.Factory
@@ -152,5 +153,6 @@ namespace RagnaLib.Wrapper.Factory
                 return "";
             }
         }
+
     }
 }

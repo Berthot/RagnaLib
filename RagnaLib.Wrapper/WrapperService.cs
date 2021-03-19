@@ -9,6 +9,7 @@ using RagnaLib.Wrapper.CsvWrapper;
 using RagnaLib.Wrapper.CsvWrapper.CsvModels;
 using RagnaLib.Wrapper.Factory;
 using RagnaLib.Wrapper.ModelsAPI;
+using RagnaLib.Wrapper.RagnaPride;
 using Element = RagnaLib.Domain.Entities.Element;
 
 namespace RagnaLib.Wrapper
@@ -18,6 +19,7 @@ namespace RagnaLib.Wrapper
         private readonly WrapperRepository _repo;
         private readonly WrapperFactory _factory;
         private static ApiFactory _apiFactory;
+        private static RagnaPrideItemFactory _itemRpFactory;
         private static WriterCsv _writerCsv;
         private readonly ReadCsv _readCsv;
         private readonly Context _context;
@@ -30,6 +32,7 @@ namespace RagnaLib.Wrapper
             _apiFactory = new ApiFactory();
             _writerCsv = new WriterCsv();
             _readCsv = new ReadCsv();
+            _itemRpFactory = new RagnaPrideItemFactory();
         }
 
         public async Task GetDbByApi()
@@ -59,6 +62,8 @@ namespace RagnaLib.Wrapper
                 }
             }
         }
+        
+
 
         private static async Task WriteLog(string id, string fileName = "log")
         {
@@ -142,5 +147,33 @@ namespace RagnaLib.Wrapper
                 throw;
             }
         }
+
+        public List<Identity> GetIdsRange(int start, int end)
+        {
+            var ids = new ReadCsv().ReadDynamicClass<Identity>("item_id.csv");
+
+            return ids.GetRange(start, end - start);
+        }
+
+        public void GetItemsFromRagnaPride(List<Identity> ids, string idName)
+        {
+            var api = new RagnaPrideApi();
+            var acc = 0;
+            var lista = new List<RpItemCsv>();
+            foreach (var id in ids.Select(identity => identity.Id))
+            {
+                acc++;
+                var item = api.GetItem(id);
+                // var print = $"{item.id} - {item.name}";
+                // Console.WriteLine(print);
+                var rpItemCsv = _itemRpFactory.GetMainItem(item);
+                lista.Add(rpItemCsv);
+                if (acc % 99 == 0)
+                    Console.WriteLine($"ID: {idName} - COUNT {acc} ---------------------------------------------------------------------------");
+
+            }
+            _writerCsv.WriteDynamicCsvByClass($"ragnaPrideItems/ragnaplace_item_{idName}", lista);
+        }
+        
     }
 }

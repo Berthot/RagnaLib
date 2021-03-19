@@ -3,7 +3,7 @@ using System.Net;
 using Newtonsoft.Json;
 using RagnaLib.Wrapper.ModelsAPI;
 
-namespace RagnaLib.Wrapper
+namespace RagnaLib.Wrapper.RagnaPride
 {
     public class RagnaplaceApi
     {
