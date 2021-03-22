@@ -4,24 +4,23 @@ using RagnaLib.Domain.Entities;
 
 namespace RagnaLib.Infra.Data.Mappings
 {
-    public static class SubTypeMapping
+    public static class EquipPositionMapping
     {
-        public static void MappingSubType(this EntityTypeBuilder<SubType> entity)
+        public static void MappingEquipPosition(this EntityTypeBuilder<EquipPosition> entity)
         {
+            
             entity.HasKey(x => x.Id)
-                .HasName("PK_SUB_TYPE");
-            entity.ToTable("SubType");
+                .HasName("PK_EQUIP_POSITION");
+            entity.ToTable("EquipPosition");
 
             entity.Property(x => x.Id)
                 .ValueGeneratedOnAdd()
                 .UseIdentityColumn();
 
-            entity.Property(x => x.Name)
-                .IsRequired();
-            
-            entity.Property(x => x.Location)
+            entity.Property(x => x.Position)
                 .IsRequired();
 
+            entity.Property(x => x.Description);
         }
     }
 }

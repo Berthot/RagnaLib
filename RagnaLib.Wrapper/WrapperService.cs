@@ -168,7 +168,7 @@ namespace RagnaLib.Wrapper
                 // Console.WriteLine(print);
                 var rpItemCsv = _itemRpFactory.GetMainItem(item);
                 lista.Add(rpItemCsv);
-                if (acc % 99 == 0)
+                if (acc % 1 == 0)
                     Console.WriteLine($"ID: {idName} - COUNT {acc} ---------------------------------------------------------------------------");
 
             }

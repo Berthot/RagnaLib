@@ -9,11 +9,12 @@ namespace RagnaLib.Infra.Data.Seeds
         {
             return new List<ItemType>()
             {
+                new ItemType() {Id = -1, Name = "Unknown"},                
                 new ItemType()
                 {
                     Id = 1,
-                    Name = "Consumable"
-                },
+                    Name = "Weapon"
+                },                
                 new ItemType()
                 {
                     Id = 2,
@@ -22,7 +23,7 @@ namespace RagnaLib.Infra.Data.Seeds
                 new ItemType()
                 {
                     Id = 3,
-                    Name = "Weapon"
+                    Name = "Consumable"
                 },
                 new ItemType()
                 {
@@ -32,22 +33,27 @@ namespace RagnaLib.Infra.Data.Seeds
                 new ItemType()
                 {
                     Id = 5,
-                    Name = "Card"
+                    Name = "Etc."
                 },
                 new ItemType()
                 {
                     Id = 6,
-                    Name = "Costume"
+                    Name = "Cash"
                 },
                 new ItemType()
                 {
                     Id = 7,
-                    Name = "Other"
+                    Name = "Costume"
                 },
                 new ItemType()
                 {
                     Id = 8,
                     Name = "Shadow Equipment"
+                }
+                , new ItemType()
+                {
+                    Id = 9,
+                    Name = "Card"
                 }
             };
         }

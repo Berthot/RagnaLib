@@ -154,7 +154,7 @@ namespace RagnaLib.Wrapper.ModelsAPI
         public int? limitLevel { get; set; }
         public int? itemLevel { get; set; }
         public int? job { get; set; }
-        public object? compositionPos { get; set; }
+        public int? compositionPos { get; set; }
         public int? attribute { get; set; }
         public object? location { get; set; }
         public int? locationId { get; set; }

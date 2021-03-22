@@ -16,7 +16,7 @@ namespace RagnaLib.Wrapper
             // SetLocations();
             // SetElements();
             // var ids = new ReadCsv().ReadDynamicClass<Identity>("item_id.csv");
-            GetItemsFromRagnaPride();
+            // GetItemsFromRagnaPride();
         }
 
         private static void GetItemsFromRagnaPride()
@@ -37,10 +37,10 @@ namespace RagnaLib.Wrapper
             // Service.GetItemsFromRagnaPride(Service.GetIdsRange(10001, 11000), "10");
             // Service.GetItemsFromRagnaPride(Service.GetIdsRange(11001, 12000), "11");
             // Service.GetItemsFromRagnaPride(Service.GetIdsRange(12001, 13000), "12");
-            Service.GetItemsFromRagnaPride(Service.GetIdsRange(13001, 14000), "13");
-            Service.GetItemsFromRagnaPride(Service.GetIdsRange(14001, 15000), "14");
-            Service.GetItemsFromRagnaPride(Service.GetIdsRange(15001, 16000), "15");
-            Service.GetItemsFromRagnaPride(Service.GetIdsRange(16001, 16328), "16");
+            // Service.GetItemsFromRagnaPride(Service.GetIdsRange(13001, 14000), "13");
+            // Service.GetItemsFromRagnaPride(Service.GetIdsRange(14001, 15000), "14");
+            // Service.GetItemsFromRagnaPride(Service.GetIdsRange(15001, 16000), "15");
+            // Service.GetItemsFromRagnaPride(Service.GetIdsRange(16001, 16328), "16");
             
         }
 

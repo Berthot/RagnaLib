@@ -16,6 +16,8 @@ namespace RagnaLib.Infra.Data
             builder.Entity<MonsterItemMap>().MappingMonsterItemMap();
             builder.Entity<MonsterPerLocationMap>().MappingMonsterPerLocationMap();
             builder.Entity<SubType>().MappingSubType();
+            builder.Entity<EquipPosition>().MappingEquipPosition();
+            builder.Entity<ItemEquipPositionMap>().MappingItemEquipPositionMap();
         }
         
     }

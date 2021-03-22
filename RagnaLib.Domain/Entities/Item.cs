@@ -13,23 +13,7 @@ namespace RagnaLib.Domain.Entities
         public string Description { get; set; }
         public int ItemTypeId { get; set; }
         public int SubTypeId { get; set; }
-
-        public string EquipLocation { get; set; } // location
-
-        /*
-         * Lower
-         * Middle
-         * Upper
-         * MiddleUpper
-         * UpperMiddleLower
-         */
         public bool Refinable { get; set; }
-
-        public virtual ItemMoveInfo ItemMoveInfo { get; set; }
-        
-        public int RagnaPriceItemTypeId { get; set; } // 5 == ETC
-        public int RagnaPriceSubItemTypeId { get; set; }
-
         public int Attack { get; set; }
         public int MagicAttack { get; set; }
         public int RequiredLevel { get; set; }
@@ -37,10 +21,14 @@ namespace RagnaLib.Domain.Entities
         public int ItemLevel { get; set; }
         public int Weight { get; set; }
         public int Defense { get; set; }
-        public string CardPrefix { get; set; }
         public int Slots { get; set; }
         public string UnidName { get; set; }
-        public IEnumerable<NpcItemMap> NpcItemMaps { get; set; }
+        
+        public string CardPrefix { get; set; }
+        
+        public IEnumerable<ItemEquipPositionMap> ItemEquipPositionMaps { get; set; }
+
+        // public IEnumerable<NpcItemMap> NpcItemMaps { get; set; }
         public IEnumerable<MonsterItemMap> MonsterItemMaps { get; set; }
         public virtual ItemType ItemType { get; set; }
         public virtual SubType SubType { get; set; }
