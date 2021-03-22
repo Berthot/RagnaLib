@@ -37,7 +37,6 @@ namespace RagnaLib.Wrapper.RagnaPride
                 AegisName = item.aegisName?.ToString(),
                 LocationId = item.locationId?.ToString(),
                 Acessory = item.accessory?.ToString(),
-                CompoundOn = item.compositionPos?.ToString()
             };
         }
 

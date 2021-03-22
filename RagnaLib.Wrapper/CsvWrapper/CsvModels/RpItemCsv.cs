@@ -31,6 +31,5 @@ namespace RagnaLib.Wrapper.CsvWrapper.CsvModels
         [Name("attribute")] public string Attribute { get; set; }
         [Name("locationId")] public string LocationId { get; set; }
         [Name("acessory")] public string Acessory { get; set; }
-        [Name("compound_on")]public string CompoundOn { get; set; }
     }
 }

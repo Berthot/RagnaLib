@@ -11,6 +11,7 @@ using RagnaLib.Wrapper.Factory;
 using RagnaLib.Wrapper.ModelsAPI;
 using RagnaLib.Wrapper.RagnaPride;
 using Element = RagnaLib.Domain.Entities.Element;
+using Item = RagnaLib.Domain.Entities.Item;
 
 namespace RagnaLib.Wrapper
 {
@@ -174,6 +175,96 @@ namespace RagnaLib.Wrapper
             }
             _writerCsv.WriteDynamicCsvByClass($"ragnaPrideItems/ragnaplace_item_{idName}", lista);
         }
-        
+
+        public IEnumerable<RpItemCsv> GetItemsByCsv()
+        {
+            var csv = _readCsv.ReadDynamicClass<RpItemCsv>(
+                "/home/bertho/Documents/Git/RagnaLib/RagnaLib.Wrapper/Resources/ItemsRangPride.csv");
+            return csv;
+        }
+
+        public List<Item> ItemRagnaPrideToModel(IEnumerable<RpItemCsv> itemsRagnaPride)
+        {
+            return itemsRagnaPride.Select(x =>
+                _factory.GetItemModel(x)).ToList();
+        }
+
+        public void SetItemSubType(List<Item> itemModels, List<RpItemCsv> rpItems)
+        {
+            var subTypeDb = _context.SubTypes.ToList();
+            foreach (var item in itemModels)
+            {
+                // if 517 set 22 and 23
+                var rpItem = rpItems.First(x => x.Id == item.Id.ToString());
+                var subTypeRpId = _factory.StringToInteger(rpItem?.RagnaPriceSubItemTypeId);
+                var dbSubTypeId = SubTypeDic()[subTypeRpId];
+                var subtypeModel = subTypeDb.FirstOrDefault(x=>x.Id == dbSubTypeId);
+                item.SubType = subtypeModel;
+            }
+        }
+
+        public Dictionary<int, int> SubTypeDic()
+        {
+            return new Dictionary<int, int>()
+            {
+                [-1] = -1,
+                [256] = 1,
+                [257] = 2,
+                [258] = 3,
+                [259] = 4,
+                [260] = 5,
+                [261] = 6,
+                [262] = 7,
+                [263] = 8,
+                [265] = 9,
+                [266] = 10,
+                [267] = 11,
+                [268] = 12,
+                [269] = 13,
+                [270] = 14,
+                [271] = 15,
+                [272] = 16,
+                [275] = 17,
+                [276] = 18,
+                [277] = 19,
+                [278] = 20,
+                [517] = 21,
+                [510] = 22,
+                [511] = 23,
+                [512] = 24,
+                [513] = 25,
+                [515] = 26,
+                [516] = 27,
+                [518] = 28,
+                [768] = 29,
+                [769] = 30,
+                [1028] = 31,
+                [1024] = 32,
+                [1025] = 33,
+                [1026] = 34,
+                [1027] = 35,
+                [0] = 36,
+                [273] = 37,
+                [274] = 38,
+                [514] = 39,
+                [522] = 40,
+                [280] = 41,
+                [526] = 42,
+                [527] = 43,
+                [528] = 44,
+                [529] = 45,
+                [530] = 46,
+                [519] = 47,
+                
+            };
+        }
+
+        public void SetItemType(List<Item> itemModels)
+        {
+            foreach (var item in itemModels)
+            {
+                
+            }
+        }
     }
 }

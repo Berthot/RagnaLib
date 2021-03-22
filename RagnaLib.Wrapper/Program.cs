@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using RagnaLib.Infra.Data;
 using RagnaLib.Wrapper.CsvWrapper;
@@ -15,8 +16,17 @@ namespace RagnaLib.Wrapper
         {
             // SetLocations();
             // SetElements();
+            SetItems();
             // var ids = new ReadCsv().ReadDynamicClass<Identity>("item_id.csv");
             // GetItemsFromRagnaPride();
+        }
+
+        private static void SetItems()
+        {
+            var itemsRagnaPride = Service.GetItemsByCsv().ToList();
+            var itemModel = Service.ItemRagnaPrideToModel(itemsRagnaPride);
+            Service.SetItemSubType(itemModel, itemsRagnaPride);
+            Service.SetItemType(itemModel);
         }
 
         private static void GetItemsFromRagnaPride()

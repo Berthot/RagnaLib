@@ -19,7 +19,7 @@ namespace RagnaLib.Domain.Entities
         public int RequiredLevel { get; set; }
         public int LimitLevel { get; set; }
         public int ItemLevel { get; set; }
-        public int Weight { get; set; }
+        public float Weight { get; set; }
         public int Defense { get; set; }
         public int Slots { get; set; }
         public string UnidName { get; set; }
