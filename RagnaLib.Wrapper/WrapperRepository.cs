@@ -29,5 +29,10 @@ namespace RagnaLib.Wrapper
             _context.Elements.AddRange(elements);
 
         }
+
+        public void CreateItemRange(List<Item> itemModels)
+        {
+            _context.Items.AddRange(itemModels);
+        }
     }
 }

@@ -91,122 +91,194 @@ namespace RagnaLib.Infra.Migrations
                         new
                         {
                             Id = -1,
+                            Description = "-",
                             Position = "Unknown"
                         },
                         new
                         {
                             Id = 1,
-                            Position = "Accessory (Left)"
+                            Description = "Accessory",
+                            Position = "Accessory"
                         },
                         new
                         {
                             Id = 2,
-                            Position = "Accessory (Right)"
+                            Description = "Accessory",
+                            Position = "Accessory (Left)"
                         },
                         new
                         {
                             Id = 3,
-                            Position = "Armor"
+                            Description = "Accessory",
+                            Position = "Accessory (Right)"
                         },
                         new
                         {
                             Id = 4,
+                            Description = "Armor",
                             Position = "Body"
                         },
                         new
                         {
                             Id = 5,
-                            Position = "Both hand"
+                            Description = "Boath Hand",
+                            Position = "Both Hand"
                         },
                         new
                         {
                             Id = 6,
-                            Position = "Costume Garment"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Position = "Enchant"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Position = "Essence"
-                        },
-                        new
-                        {
-                            Id = 9,
+                            Description = "Garment",
                             Position = "Garment"
                         },
                         new
                         {
-                            Id = 10,
-                            Position = "Headgear"
-                        },
-                        new
-                        {
-                            Id = 11,
+                            Id = 7,
+                            Description = "Shield",
                             Position = "Left Hand"
                         },
                         new
                         {
-                            Id = 12,
-                            Position = "Middle Headgear"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Position = "Right Hand"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Position = "Shadow Accessory (Left)"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            Position = "Shadow Accessory (Right)"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            Position = "Shadow Armor"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            Position = "Shadow Shield"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            Position = "Shadow Shoes"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            Position = "Shadow Weapon"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            Position = "Shield"
-                        },
-                        new
-                        {
-                            Id = 21,
+                            Id = 8,
+                            Description = "Shoes",
                             Position = "Shoes"
                         },
                         new
                         {
-                            Id = 22,
+                            Id = 9,
+                            Description = "Weapon",
+                            Position = "Right Hand"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "Shadow Weapon",
+                            Position = "Shadow Weapon"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Description = "Shadow Acessory",
+                            Position = "Right Shadow Accessory"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Description = "Shadow Armor",
+                            Position = "Shadow Armor"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Description = "Shadow Shield",
+                            Position = "Shadow Shield"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Description = "Shadow Shoes",
+                            Position = "Shadow Shoes"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Description = "Shadow Acessory",
+                            Position = "Left Shadow Accessory"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Description = "Costume",
+                            Position = "Lower Costume Headgear"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Description = "Costume",
+                            Position = "Middle Costume Headgear"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Description = "Costume",
                             Position = "Upper Costume Headgear"
                         },
                         new
                         {
+                            Id = 19,
+                            Description = "Costume",
+                            Position = "Middle/Lower Costume Headgear"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Description = "Costume",
+                            Position = "Upper/Lower Costume Headgear"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Description = "Costume",
+                            Position = "Upper/Middle Costume Headgear"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Description = "Costume",
+                            Position = "Upper/Middle/Lower Costume Headgear"
+                        },
+                        new
+                        {
                             Id = 23,
-                            Position = "Weapon"
+                            Description = "Costume Garment",
+                            Position = "Costume Garment"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Description = "Headgear",
+                            Position = "Lower Headgear"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Description = "Headgear",
+                            Position = "Middle Headgear"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Description = "Headgear",
+                            Position = "Upper Headgear"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Description = "Headgear",
+                            Position = "Upper/Middle/Lower Headgear"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Description = "Headgear",
+                            Position = "Upper/Middle Headgear"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Description = "Headgear",
+                            Position = "Upper/Lower Headgear"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Description = "Headgear",
+                            Position = "Middle/Lower Headgear"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Description = "Enchant",
+                            Position = "Enchant"
                         });
                 });
 

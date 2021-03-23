@@ -63,14 +63,13 @@ namespace RagnaLib.Wrapper
                 }
             }
         }
-        
 
 
         private static async Task WriteLog(string id, string fileName = "log")
         {
             await _writerCsv.AppendInFile(fileName, $"{id}");
         }
-        
+
         private static async Task WriteError(string id)
         {
             await _writerCsv.AppendInFile("erro", $"{id}");
@@ -107,7 +106,6 @@ namespace RagnaLib.Wrapper
                 _repo.CreateLocationRange(locations);
                 _repo.SaveChanges();
                 // transaction.Commit();
-
             }
             catch (Exception ex)
             {
@@ -116,19 +114,17 @@ namespace RagnaLib.Wrapper
                 throw;
             }
         }
-        
+
         public List<Location> CreateLocationsByCsv()
         {
             var csv = _readCsv.ReadDynamicClass<LocationCsv>("maps_ragnaplace.csv");
-            return csv.Select(x => _factory.GetLocationEntity(x)).OrderBy(x=>x.Name).ToList();
-
+            return csv.Select(x => _factory.GetLocationEntity(x)).OrderBy(x => x.Name).ToList();
         }
 
         public List<Element> CreateElementsByCsv()
         {
             var csv = _readCsv.ReadDynamicClass<ElementCsv>("elements_ragnarok.csv");
-            return csv.Select(x => _factory.GetElementEntity(x)).OrderBy(x=>x.Name).ToList();
-
+            return csv.Select(x => _factory.GetElementEntity(x)).OrderBy(x => x.Name).ToList();
         }
 
         public void CreateElementRange(List<Element> elements)
@@ -139,7 +135,6 @@ namespace RagnaLib.Wrapper
                 _repo.CreateElementRange(elements);
                 _repo.SaveChanges();
                 // transaction.Commit();
-
             }
             catch (Exception ex)
             {
@@ -170,9 +165,10 @@ namespace RagnaLib.Wrapper
                 var rpItemCsv = _itemRpFactory.GetMainItem(item);
                 lista.Add(rpItemCsv);
                 if (acc % 1 == 0)
-                    Console.WriteLine($"ID: {idName} - COUNT {acc} ---------------------------------------------------------------------------");
-
+                    Console.WriteLine(
+                        $"ID: {idName} - COUNT {acc} ---------------------------------------------------------------------------");
             }
+
             _writerCsv.WriteDynamicCsvByClass($"ragnaPrideItems/ragnaplace_item_{idName}", lista);
         }
 
@@ -185,8 +181,19 @@ namespace RagnaLib.Wrapper
 
         public List<Item> ItemRagnaPrideToModel(IEnumerable<RpItemCsv> itemsRagnaPride)
         {
-            return itemsRagnaPride.Select(x =>
-                _factory.GetItemModel(x)).ToList();
+            var lista = new List<Item>();
+            var ids = new List<string>();
+            
+            foreach (var itemCsv in itemsRagnaPride)
+            {
+                if(ids.Contains(itemCsv.Id))
+                    continue;
+                ids.Add(itemCsv.Id);
+                lista.Add(_factory.GetItemModel(itemCsv));
+            }
+
+            return lista;
+
         }
 
         public void SetItemSubType(List<Item> itemModels, List<RpItemCsv> rpItems)
@@ -198,7 +205,7 @@ namespace RagnaLib.Wrapper
                 var rpItem = rpItems.First(x => x.Id == item.Id.ToString());
                 var subTypeRpId = _factory.StringToInteger(rpItem?.RagnaPriceSubItemTypeId);
                 var dbSubTypeId = SubTypeDic()[subTypeRpId];
-                var subtypeModel = subTypeDb.FirstOrDefault(x=>x.Id == dbSubTypeId);
+                var subtypeModel = subTypeDb.FirstOrDefault(x => x.Id == dbSubTypeId);
                 item.SubType = subtypeModel;
             }
         }
@@ -255,15 +262,141 @@ namespace RagnaLib.Wrapper
                 [529] = 45,
                 [530] = 46,
                 [519] = 47,
-                
             };
         }
 
-        public void SetItemType(List<Item> itemModels)
+        public Dictionary<int, int> EquipLocationDic()
         {
+            return new Dictionary<int, int>()
+            {
+                [-1] = -1,
+                [0] = -1,
+                [136] = 1,
+                [128] = 2,
+                [8] = 3,
+                [16] = 4,
+                [34] = 5,
+                [4] = 6,
+                [32] = 7,
+                [64] = 8,
+                [2] = 9,
+                [131072] = 10,
+                [1048576] = 11,
+                [65536] = 12,
+                [262144] = 13,
+                [524288] = 14,
+                [2097152] = 15,
+                [4096] = 16,
+                [2048] = 17,
+                [1024] = 18,
+                [6144] = 19,
+                [5120] = 20,
+                [3072] = 21,
+                [7168] = 22,
+                [8192] = 23,
+                [1] = 24,
+                [512] = 25,
+                [256] = 26,
+                [769] = 27,
+                [768] = 28,
+                [257] = 29,
+                [513] = 30,
+            };
+        }
+
+        public void SetItemType(List<Item> itemModels, List<RpItemCsv> rpItems)
+        {
+            var typeDb = _context.ItemTypes.ToList();
+
             foreach (var item in itemModels)
             {
-                
+                // if 517 set 22 and 23
+                var rpItem = rpItems.First(x => x.Id == item.Id.ToString());
+                var typeRpId = _factory.StringToInteger(rpItem?.RagnaPriceItemTypeId);
+                var dbTypeId = TypeDic()[typeRpId];
+                if (dbTypeId == 22 || dbTypeId == 23)
+                    dbTypeId = 21;
+                var typeModel = typeDb.FirstOrDefault(x => x.Id == dbTypeId);
+                item.ItemType = typeModel;
+            }
+        }
+
+        public Dictionary<int, int> TypeDic()
+        {
+            return new Dictionary<int, int>()
+            {
+                [-1] = -1,
+                [0] = -1,
+                [1] = 1,
+                [2] = 2,
+                [3] = 3,
+                [4] = 4,
+                [5] = 5,
+                [6] = 9,
+                [7] = 6,
+                [9] = 7,
+                [10] = 8,
+            };
+        }
+
+        public void SetItemEquipPosition(List<Item> itemModels, List<RpItemCsv> rpItemCsv)
+        {
+            var positions = _context.EquipPositions.ToList();
+
+            var dic = EquipLocationDic();
+            
+            var csv = _readCsv.ReadDynamicClass<CardPosition>(
+                "/home/bertho/Documents/Git/RagnaLib/RagnaLib.Wrapper/Resources/CardLocation.csv");
+
+            foreach (var item in itemModels)
+            {
+                var rpItem = rpItemCsv.First(x => x.Id == item.Id.ToString());
+
+                var locationId = _factory.StringToInteger(rpItem?.LocationId);
+                if (!dic.ContainsKey(locationId))
+                    locationId = -1;
+                if (item.ItemType.Id == 9)
+                {
+                    var test = csv.FirstOrDefault(x => x.Id == item.Id.ToString());
+                    if(test != default)
+                    {
+                        locationId =
+                            int.Parse(csv.FirstOrDefault(x => x.Id == item.Id.ToString()).LocationId.ToString());
+                        item.ItemEquipPositionMaps = new List<ItemEquipPositionMap>()
+                        {
+                            new ItemEquipPositionMap()
+                            {
+                                EquipPosition = positions.FirstOrDefault(x => x.Id == locationId)
+                            }
+                        };
+                        continue;
+                    }
+                }
+                item.ItemEquipPositionMaps = new List<ItemEquipPositionMap>()
+                {
+                    new ItemEquipPositionMap()
+                    {
+                        EquipPosition = positions.FirstOrDefault(x => x.Id == EquipLocationDic()[locationId])
+                    }
+                };
+            }
+        }
+
+        public void CreateItemRange(List<Item> itemModels)
+        {
+            using var transaction = _context.Database.BeginTransaction();
+            try
+            {
+                _repo.CreateItemRange(itemModels);
+                _repo.SaveChanges();
+                transaction.Commit();
+
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                Console.WriteLine(ex);
+                throw;
             }
         }
     }

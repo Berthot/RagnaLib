@@ -24,9 +24,15 @@ namespace RagnaLib.Wrapper
         private static void SetItems()
         {
             var itemsRagnaPride = Service.GetItemsByCsv().ToList();
-            var itemModel = Service.ItemRagnaPrideToModel(itemsRagnaPride);
-            Service.SetItemSubType(itemModel, itemsRagnaPride);
-            Service.SetItemType(itemModel);
+            var itemModels = Service.ItemRagnaPrideToModel(itemsRagnaPride);
+            Service.SetItemSubType(itemModels, itemsRagnaPride);
+            Console.WriteLine("Set item SubType - OK");
+            Service.SetItemType(itemModels, itemsRagnaPride);
+            Console.WriteLine("Set item Type - OK");
+            Service.SetItemEquipPosition(itemModels, itemsRagnaPride);
+            Console.WriteLine("Set item position - OK");
+            Service.CreateItemRange(itemModels);
+
         }
 
         private static void GetItemsFromRagnaPride()

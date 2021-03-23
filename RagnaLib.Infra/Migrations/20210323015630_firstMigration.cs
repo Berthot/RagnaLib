@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace RagnaLib.Infra.Migrations
 {
-    public partial class testMigration : Migration
+    public partial class firstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,6 +29,20 @@ namespace RagnaLib.Infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ELEMENT", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EquipPosition",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Position = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EQUIP_POSITION", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -62,12 +76,27 @@ namespace RagnaLib.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Race",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    EnName = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Race", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SubType",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Location = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -81,14 +110,15 @@ namespace RagnaLib.Infra.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
+                    DbName = table.Column<string>(type: "text", nullable: true),
                     Level = table.Column<int>(type: "integer", nullable: false),
                     Health = table.Column<int>(type: "integer", nullable: false),
                     Size = table.Column<int>(type: "integer", nullable: false),
-                    Race = table.Column<int>(type: "integer", nullable: false),
                     GifUrl = table.Column<string>(type: "text", nullable: true),
                     ElementId = table.Column<int>(type: "integer", nullable: false),
                     HasDrop = table.Column<bool>(type: "boolean", nullable: false),
-                    HasLocation = table.Column<bool>(type: "boolean", nullable: false)
+                    HasLocation = table.Column<bool>(type: "boolean", nullable: false),
+                    RaceId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -97,6 +127,12 @@ namespace RagnaLib.Infra.Migrations
                         name: "FK_MONSTER_ELEMENT",
                         column: x => x.ElementId,
                         principalTable: "Element",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MONSTER_RACE",
+                        column: x => x.RaceId,
+                        principalTable: "Race",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -114,7 +150,18 @@ namespace RagnaLib.Infra.Migrations
                     CardImageUrl = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
                     ItemTypeId = table.Column<int>(type: "integer", nullable: false),
-                    SubTypeId = table.Column<int>(type: "integer", nullable: false)
+                    SubTypeId = table.Column<int>(type: "integer", nullable: false),
+                    Refinable = table.Column<bool>(type: "boolean", nullable: false),
+                    Attack = table.Column<int>(type: "integer", nullable: false),
+                    MagicAttack = table.Column<int>(type: "integer", nullable: false),
+                    RequiredLevel = table.Column<int>(type: "integer", nullable: false),
+                    LimitLevel = table.Column<int>(type: "integer", nullable: false),
+                    ItemLevel = table.Column<int>(type: "integer", nullable: false),
+                    Weight = table.Column<float>(type: "real", nullable: false),
+                    Defense = table.Column<int>(type: "integer", nullable: false),
+                    Slots = table.Column<int>(type: "integer", nullable: false),
+                    UnidName = table.Column<string>(type: "text", nullable: true),
+                    CardPrefix = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -161,6 +208,32 @@ namespace RagnaLib.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ItemEquipPositionMap",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ItemId = table.Column<int>(type: "integer", nullable: false),
+                    EquipPositionId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ITEM_EQUIP_POSITION_MAP", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ITEMEQUIPPOSITIONMAP_EQUIPEPOSITION",
+                        column: x => x.EquipPositionId,
+                        principalTable: "EquipPosition",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ITEMEQUIPPOSITIONMAP_ITEM",
+                        column: x => x.ItemId,
+                        principalTable: "Item",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MonsterItemMap",
                 columns: table => new
                 {
@@ -188,18 +261,133 @@ namespace RagnaLib.Infra.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "EquipPosition",
+                columns: new[] { "Id", "Description", "Position" },
+                values: new object[,]
+                {
+                    { -1, "-", "Unknown" },
+                    { 31, "Enchant", "Enchant" },
+                    { 30, "Headgear", "Middle/Lower Headgear" },
+                    { 29, "Headgear", "Upper/Lower Headgear" },
+                    { 28, "Headgear", "Upper/Middle Headgear" },
+                    { 27, "Headgear", "Upper/Middle/Lower Headgear" },
+                    { 26, "Headgear", "Upper Headgear" },
+                    { 25, "Headgear", "Middle Headgear" },
+                    { 24, "Headgear", "Lower Headgear" },
+                    { 22, "Costume", "Upper/Middle/Lower Costume Headgear" },
+                    { 21, "Costume", "Upper/Middle Costume Headgear" },
+                    { 20, "Costume", "Upper/Lower Costume Headgear" },
+                    { 19, "Costume", "Middle/Lower Costume Headgear" },
+                    { 18, "Costume", "Upper Costume Headgear" },
+                    { 17, "Costume", "Middle Costume Headgear" },
+                    { 16, "Costume", "Lower Costume Headgear" },
+                    { 23, "Costume Garment", "Costume Garment" },
+                    { 14, "Shadow Shoes", "Shadow Shoes" },
+                    { 15, "Shadow Acessory", "Left Shadow Accessory" },
+                    { 2, "Accessory", "Accessory (Left)" },
+                    { 3, "Accessory", "Accessory (Right)" },
+                    { 4, "Armor", "Body" },
+                    { 5, "Boath Hand", "Both Hand" },
+                    { 6, "Garment", "Garment" },
+                    { 7, "Shield", "Left Hand" },
+                    { 1, "Accessory", "Accessory" },
+                    { 9, "Weapon", "Right Hand" },
+                    { 10, "Shadow Weapon", "Shadow Weapon" },
+                    { 11, "Shadow Acessory", "Right Shadow Accessory" },
+                    { 12, "Shadow Armor", "Shadow Armor" },
+                    { 13, "Shadow Shield", "Shadow Shield" },
+                    { 8, "Shoes", "Shoes" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "ItemType",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Consumable" },
-                    { 2, "Armor" },
-                    { 3, "Weapon" },
                     { 4, "Ammo" },
-                    { 5, "Card" },
-                    { 6, "Costume" },
-                    { 7, "Other" },
-                    { 8, "Shadow Equipment" }
+                    { 8, "Shadow Equipment" },
+                    { 7, "Costume" },
+                    { 6, "Cash" },
+                    { 5, "Etc." },
+                    { 2, "Armor" },
+                    { 9, "Card" },
+                    { 1, "Weapon" },
+                    { -1, "Unknown" },
+                    { 3, "Consumable" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Race",
+                columns: new[] { "Id", "EnName", "Name" },
+                values: new object[,]
+                {
+                    { 10, "plant", "planta" },
+                    { 8, "undead", "morto-vivo" },
+                    { 12, "null", "humano" },
+                    { 11, "null", "doram" },
+                    { 7, "insect", "inseto" },
+                    { 9, "fish", "peixe" },
+                    { 5, "dragon", "dragão" },
+                    { 4, "demon", "demônio" },
+                    { 6, "human", "humanoide" },
+                    { 3, "brute", "bruto" },
+                    { 2, "angel", "anjo" },
+                    { 1, "formless", "amorfo" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "SubType",
+                columns: new[] { "Id", "Location", "Name" },
+                values: new object[,]
+                {
+                    { 25, "Body", "Armor" },
+                    { 26, "Garment", "Garment" },
+                    { 27, "Shoes", "Shoes" },
+                    { 28, "-", "Pet" },
+                    { 29, "-", "Special" },
+                    { 30, "-", "Regeneration" },
+                    { 31, "-", "Taming item" },
+                    { 32, "-", "Arrow" },
+                    { 33, "-", "Cannonball" },
+                    { 34, "-", "Throw Weapon" },
+                    { 36, "-", "-" },
+                    { 24, "Middle Headgear", "Helm" },
+                    { 37, "-", "Pistol" },
+                    { 38, "-", "Rifle" },
+                    { 39, "Left Hand", "Shield" },
+                    { 40, "Costume Garment", "Costume Garment" },
+                    { 41, "Shadow Weapon", "Shadow Weapon" },
+                    { 42, "Shadow Armor", "Shadow Armor" },
+                    { 43, "Shadow Shield", "Shadow Shield" },
+                    { 44, "Shadow Shoes", "Shadow Shoes" },
+                    { 45, "Right Shadow Accessory", "Shadow Acc. (Right)" },
+                    { 35, "-", "Ammo" },
+                    { 23, "Accessory", "Accessory (Left)" },
+                    { 20, "Both hand", "Shuriken" },
+                    { 21, "Accessory", "Accessory" },
+                    { 46, "Left Shadow Accessory", "Shadow Acc. (Left)" },
+                    { -1, "-", "Unknown" },
+                    { 1, "Right Hand", "Dagger" },
+                    { 2, "Right Hand", "Sword" },
+                    { 3, "Both hand", "Two-handed Sword" },
+                    { 4, "Right Hand", "Spear" },
+                    { 5, "Both hand", "Two-handed Spear" },
+                    { 6, "Right Hand", "Axe" },
+                    { 7, "Both hand", "Two-handed Axe" },
+                    { 8, "Right Hand", "Mace" },
+                    { 9, "Right Hand", "Rod" },
+                    { 10, "Both hand", "Two-handed Rod" },
+                    { 11, "Both hand", "Bow" },
+                    { 12, "Right Hand", "Fist weapon" },
+                    { 13, "Right Hand", "Instrument" },
+                    { 14, "Right Hand", "Whip" },
+                    { 15, "Right Hand", "Book" },
+                    { 16, "Both hand", "Katar" },
+                    { 17, "Both hand", "Gatling Gun" },
+                    { 18, "Both hand", "Shotgun" },
+                    { 19, "Both hand", "Grenade Launcher" },
+                    { 22, "Accessory", "Accessory (Right)" },
+                    { 47, "Upper Costume Headgear", "Costume Helm" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -213,9 +401,24 @@ namespace RagnaLib.Infra.Migrations
                 column: "SubTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ItemEquipPositionMap_EquipPositionId",
+                table: "ItemEquipPositionMap",
+                column: "EquipPositionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemEquipPositionMap_ItemId",
+                table: "ItemEquipPositionMap",
+                column: "ItemId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Monster_ElementId",
                 table: "Monster",
                 column: "ElementId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Monster_RaceId",
+                table: "Monster",
+                column: "RaceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MonsterItemMap_ItemId",
@@ -241,10 +444,16 @@ namespace RagnaLib.Infra.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ItemEquipPositionMap");
+
+            migrationBuilder.DropTable(
                 name: "MonsterItemMap");
 
             migrationBuilder.DropTable(
                 name: "MonsterPerLocationMap");
+
+            migrationBuilder.DropTable(
+                name: "EquipPosition");
 
             migrationBuilder.DropTable(
                 name: "Item");
@@ -263,6 +472,9 @@ namespace RagnaLib.Infra.Migrations
 
             migrationBuilder.DropTable(
                 name: "Element");
+
+            migrationBuilder.DropTable(
+                name: "Race");
         }
     }
 }
