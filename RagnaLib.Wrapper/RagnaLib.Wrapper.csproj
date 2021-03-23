@@ -19,6 +19,7 @@
     <ItemGroup>
       <Folder Include="Models" />
       <Folder Include="Resources\ragnaPrideItems" />
+      <Folder Include="Resources\RagnaPrideMonsters" />
     </ItemGroup>
 
     <ItemGroup>

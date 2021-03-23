@@ -399,5 +399,13 @@ namespace RagnaLib.Wrapper
                 throw;
             }
         }
+
+        public List<MonsterCsv> GetMonsterByCsv()
+        {
+            var csv = _readCsv.ReadDynamicClass<MonsterCsv>(
+                "/home/bertho/Documents/Git/RagnaLib/RagnaLib.Wrapper/Resources/CardLocation.csv");
+
+            return csv;
+        }
     }
 }

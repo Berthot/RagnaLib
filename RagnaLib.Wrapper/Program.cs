@@ -16,9 +16,14 @@ namespace RagnaLib.Wrapper
         {
             // SetLocations();
             // SetElements();
-            SetItems();
+            // SetItems();
             // var ids = new ReadCsv().ReadDynamicClass<Identity>("item_id.csv");
             // GetItemsFromRagnaPride();
+        }
+
+        public static void SetMonster()
+        {
+            var monster = Service.GetMonsterByCsv();
         }
 
         private static void SetItems()
