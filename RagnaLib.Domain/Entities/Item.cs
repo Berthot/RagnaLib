@@ -32,6 +32,8 @@ namespace RagnaLib.Domain.Entities
         public IEnumerable<MonsterItemMap> MonsterItemMaps { get; set; }
         public virtual ItemType ItemType { get; set; }
         public virtual SubType SubType { get; set; }
+        
+        public List<MonsterMvpDropMap> MonsterMvpDropMaps { get; set; }
     }
 }
 // "id": 4425,

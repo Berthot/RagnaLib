@@ -19,6 +19,8 @@ namespace RagnaLib.Infra.Data.Mappings
             entity.Property(x => x.Quantity)
                 .HasDefaultValue(0)
                 .IsRequired();
+            entity.Property(x => x.RespawnTime);
+
 
             entity.HasOne(x => x.Monster)
                 .WithMany(y => y.MonsterPerLocationMaps)

@@ -4,35 +4,34 @@ using RagnaLib.Domain.Entities;
 
 namespace RagnaLib.Infra.Data.Mappings
 {
-    public static class MonsterItemMapMapping
+    public static class MonsterMvpDropMapMapping
     {
-        public static void MappingMonsterItemMap(this EntityTypeBuilder<MonsterItemMap> entity)
+        public static void MappingMonsterMvpDropMap(this EntityTypeBuilder<MonsterMvpDropMap> entity)
         {
+
             entity.HasKey(x => x.Id)
-                .HasName("PK_MONSTER_ITEM_MAP");
-            entity.ToTable("MonsterItemMap");
+                .HasName("PK_MONSTER_MVP_DROP_MAP");
+            entity.ToTable("MonsterMvpDropMap");
 
             entity.Property(x => x.Id)
                 .ValueGeneratedOnAdd()
                 .UseIdentityColumn();
-
-            entity.Property(x => x.DropRate)
-                .IsRequired();
             
-            entity.Property(x => x.Stealable)
-                .IsRequired();
+            entity.Property(x => x.Stealable);
+            
+            entity.Property(x => x.DropRate);
 
             entity.HasOne(x => x.Monster)
-                .WithMany(y => y.MonsterItemMaps)
+                .WithMany(y => y.MonsterMvpDropMaps)
                 .HasForeignKey(z => z.MonsterId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_MOSTERITEMMAP_MONSTER");
+                .HasConstraintName("FK_MONSTERMVPDROPMAP_MONSTER");
 
             entity.HasOne(x => x.Item)
-                .WithMany(y => y.MonsterItemMaps)
+                .WithMany(y => y.MonsterMvpDropMaps)
                 .HasForeignKey(z => z.ItemId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_MOSTERITEMMAP_ITEM");
+                .HasConstraintName("FK_MONSTERMVPDROPMAP_ITEM");
         }
     }
 }

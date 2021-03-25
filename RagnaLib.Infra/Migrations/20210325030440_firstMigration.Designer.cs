@@ -9,7 +9,7 @@ using RagnaLib.Infra.Data;
 namespace RagnaLib.Infra.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210323015630_firstMigration")]
+    [Migration("20210325030440_firstMigration")]
     partial class firstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -506,6 +506,9 @@ namespace RagnaLib.Infra.Migrations
                     b.Property<int>("Health")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("IsMvp")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("Level")
                         .HasColumnType("integer");
 
@@ -514,6 +517,9 @@ namespace RagnaLib.Infra.Migrations
                         .HasColumnType("text");
 
                     b.Property<int>("RaceId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ScaleId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Size")
@@ -525,6 +531,8 @@ namespace RagnaLib.Infra.Migrations
                     b.HasIndex("ElementId");
 
                     b.HasIndex("RaceId");
+
+                    b.HasIndex("ScaleId");
 
                     b.ToTable("Monster");
                 });
@@ -545,6 +553,9 @@ namespace RagnaLib.Infra.Migrations
                     b.Property<int>("MonsterId")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("Stealable")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id")
                         .HasName("PK_MONSTER_ITEM_MAP");
 
@@ -553,6 +564,34 @@ namespace RagnaLib.Infra.Migrations
                     b.HasIndex("MonsterId");
 
                     b.ToTable("MonsterItemMap");
+                });
+
+            modelBuilder.Entity("RagnaLib.Domain.Entities.MonsterMvpDropMap", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("DropRate")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MonsterId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Stealable")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("MonsterId");
+
+                    b.ToTable("MonsterMvpDropMap");
                 });
 
             modelBuilder.Entity("RagnaLib.Domain.Entities.MonsterPerLocationMap", b =>
@@ -572,6 +611,9 @@ namespace RagnaLib.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasDefaultValue(0);
+
+                    b.Property<int>("RespawnTime")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id")
                         .HasName("PK_MONSTER_PER_LOCATION_MAP");
@@ -672,6 +714,38 @@ namespace RagnaLib.Infra.Migrations
                             Id = 12,
                             EnName = "null",
                             Name = "humano"
+                        });
+                });
+
+            modelBuilder.Entity("RagnaLib.Domain.Entities.Scale", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Scales");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "small"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "medium"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "large"
                         });
                 });
 
@@ -1044,9 +1118,200 @@ namespace RagnaLib.Infra.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("RagnaLib.Domain.Entities.Scale", "Scale")
+                        .WithMany("Monsters")
+                        .HasForeignKey("ScaleId")
+                        .HasConstraintName("FK_MONSTER_SCALE")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.OwnsOne("RagnaLib.Domain.ValueObjects.Attack", "MagicAttack", b1 =>
+                        {
+                            b1.Property<int>("MonsterId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<int>("MaximumDamage")
+                                .HasColumnType("integer")
+                                .HasColumnName("MaximumMagicAttack");
+
+                            b1.Property<int>("MinimalDamage")
+                                .HasColumnType("integer")
+                                .HasColumnName("MinimumMagicAttack");
+
+                            b1.HasKey("MonsterId");
+
+                            b1.ToTable("Monster");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MonsterId");
+                        });
+
+                    b.OwnsOne("RagnaLib.Domain.ValueObjects.Attack", "PhysicalAttack", b1 =>
+                        {
+                            b1.Property<int>("MonsterId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<int>("MaximumDamage")
+                                .HasColumnType("integer")
+                                .HasColumnName("MaximumPhysicalAttack");
+
+                            b1.Property<int>("MinimalDamage")
+                                .HasColumnType("integer")
+                                .HasColumnName("MinimumPhysicalAttack");
+
+                            b1.HasKey("MonsterId");
+
+                            b1.ToTable("Monster");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MonsterId");
+                        });
+
+                    b.OwnsOne("RagnaLib.Domain.ValueObjects.Defense", "Defense", b1 =>
+                        {
+                            b1.Property<int>("MonsterId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<int>("MagicDefense")
+                                .HasColumnType("integer")
+                                .HasColumnName("MagicDefense");
+
+                            b1.Property<int>("PhysicalDefense")
+                                .HasColumnType("integer")
+                                .HasColumnName("PhysicalDefense");
+
+                            b1.HasKey("MonsterId");
+
+                            b1.ToTable("Monster");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MonsterId");
+                        });
+
+                    b.OwnsOne("RagnaLib.Domain.ValueObjects.Experience", "Experience", b1 =>
+                        {
+                            b1.Property<int>("MonsterId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<int>("Base")
+                                .HasColumnType("integer")
+                                .HasColumnName("BaseExperience");
+
+                            b1.Property<int>("Job")
+                                .HasColumnType("integer")
+                                .HasColumnName("JobExperience");
+
+                            b1.HasKey("MonsterId");
+
+                            b1.ToTable("Monster");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MonsterId");
+                        });
+
+                    b.OwnsOne("RagnaLib.Domain.ValueObjects.PrimaryAttribute", "PrimaryAttribute", b1 =>
+                        {
+                            b1.Property<int>("MonsterId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<int>("Agi")
+                                .HasColumnType("integer")
+                                .HasColumnName("Agi");
+
+                            b1.Property<int>("Dex")
+                                .HasColumnType("integer")
+                                .HasColumnName("Dex");
+
+                            b1.Property<int>("Int")
+                                .HasColumnType("integer")
+                                .HasColumnName("Int");
+
+                            b1.Property<int>("Luk")
+                                .HasColumnType("integer")
+                                .HasColumnName("Luk");
+
+                            b1.Property<int>("Str")
+                                .HasColumnType("integer")
+                                .HasColumnName("Str");
+
+                            b1.Property<int>("Vit")
+                                .HasColumnType("integer")
+                                .HasColumnName("Vit");
+
+                            b1.HasKey("MonsterId");
+
+                            b1.ToTable("Monster");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MonsterId");
+                        });
+
+                    b.OwnsOne("RagnaLib.Domain.ValueObjects.SecondaryAttribute", "SecondaryAttribute", b1 =>
+                        {
+                            b1.Property<int>("MonsterId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<int>("AttackRange")
+                                .HasColumnType("integer")
+                                .HasColumnName("AttackRange");
+
+                            b1.Property<float>("AttackSpeed")
+                                .HasColumnType("real")
+                                .HasColumnName("AttackSpeed");
+
+                            b1.Property<int>("Flee")
+                                .HasColumnType("integer")
+                                .HasColumnName("Flee");
+
+                            b1.Property<int>("Hit")
+                                .HasColumnType("integer")
+                                .HasColumnName("Hit");
+
+                            b1.Property<int>("Hp")
+                                .HasColumnType("integer")
+                                .HasColumnName("Hp");
+
+                            b1.Property<int>("Sp")
+                                .HasColumnType("integer")
+                                .HasColumnName("Sp");
+
+                            b1.HasKey("MonsterId");
+
+                            b1.ToTable("Monster");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MonsterId");
+                        });
+
+                    b.Navigation("Defense");
+
                     b.Navigation("Element");
 
+                    b.Navigation("Experience");
+
+                    b.Navigation("MagicAttack");
+
+                    b.Navigation("PhysicalAttack");
+
+                    b.Navigation("PrimaryAttribute");
+
                     b.Navigation("Race");
+
+                    b.Navigation("Scale");
+
+                    b.Navigation("SecondaryAttribute");
                 });
 
             modelBuilder.Entity("RagnaLib.Domain.Entities.MonsterItemMap", b =>
@@ -1063,6 +1328,25 @@ namespace RagnaLib.Infra.Migrations
                         .HasForeignKey("MonsterId")
                         .HasConstraintName("FK_MOSTERITEMMAP_MONSTER")
                         .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+
+                    b.Navigation("Monster");
+                });
+
+            modelBuilder.Entity("RagnaLib.Domain.Entities.MonsterMvpDropMap", b =>
+                {
+                    b.HasOne("RagnaLib.Domain.Entities.Item", "Item")
+                        .WithMany("MonsterMvpDropMaps")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RagnaLib.Domain.Entities.Monster", "Monster")
+                        .WithMany("MonsterMvpDropMaps")
+                        .HasForeignKey("MonsterId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Item");
@@ -1106,6 +1390,8 @@ namespace RagnaLib.Infra.Migrations
                     b.Navigation("ItemEquipPositionMaps");
 
                     b.Navigation("MonsterItemMaps");
+
+                    b.Navigation("MonsterMvpDropMaps");
                 });
 
             modelBuilder.Entity("RagnaLib.Domain.Entities.ItemType", b =>
@@ -1122,10 +1408,17 @@ namespace RagnaLib.Infra.Migrations
                 {
                     b.Navigation("MonsterItemMaps");
 
+                    b.Navigation("MonsterMvpDropMaps");
+
                     b.Navigation("MonsterPerLocationMaps");
                 });
 
             modelBuilder.Entity("RagnaLib.Domain.Entities.Race", b =>
+                {
+                    b.Navigation("Monsters");
+                });
+
+            modelBuilder.Entity("RagnaLib.Domain.Entities.Scale", b =>
                 {
                     b.Navigation("Monsters");
                 });

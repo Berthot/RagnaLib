@@ -90,6 +90,19 @@ namespace RagnaLib.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Scales",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Scales", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SubType",
                 columns: table => new
                 {
@@ -118,7 +131,29 @@ namespace RagnaLib.Infra.Migrations
                     ElementId = table.Column<int>(type: "integer", nullable: false),
                     HasDrop = table.Column<bool>(type: "boolean", nullable: false),
                     HasLocation = table.Column<bool>(type: "boolean", nullable: false),
-                    RaceId = table.Column<int>(type: "integer", nullable: false)
+                    IsMvp = table.Column<bool>(type: "boolean", nullable: false),
+                    RaceId = table.Column<int>(type: "integer", nullable: false),
+                    ScaleId = table.Column<int>(type: "integer", nullable: false),
+                    BaseExperience = table.Column<int>(type: "integer", nullable: true),
+                    JobExperience = table.Column<int>(type: "integer", nullable: true),
+                    MinimumPhysicalAttack = table.Column<int>(type: "integer", nullable: true),
+                    MaximumPhysicalAttack = table.Column<int>(type: "integer", nullable: true),
+                    MinimumMagicAttack = table.Column<int>(type: "integer", nullable: true),
+                    MaximumMagicAttack = table.Column<int>(type: "integer", nullable: true),
+                    MagicDefense = table.Column<int>(type: "integer", nullable: true),
+                    PhysicalDefense = table.Column<int>(type: "integer", nullable: true),
+                    Str = table.Column<int>(type: "integer", nullable: true),
+                    Agi = table.Column<int>(type: "integer", nullable: true),
+                    Vit = table.Column<int>(type: "integer", nullable: true),
+                    Int = table.Column<int>(type: "integer", nullable: true),
+                    Dex = table.Column<int>(type: "integer", nullable: true),
+                    Luk = table.Column<int>(type: "integer", nullable: true),
+                    Hp = table.Column<int>(type: "integer", nullable: true),
+                    Sp = table.Column<int>(type: "integer", nullable: true),
+                    Flee = table.Column<int>(type: "integer", nullable: true),
+                    Hit = table.Column<int>(type: "integer", nullable: true),
+                    AttackSpeed = table.Column<float>(type: "real", nullable: true),
+                    AttackRange = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -133,6 +168,12 @@ namespace RagnaLib.Infra.Migrations
                         name: "FK_MONSTER_RACE",
                         column: x => x.RaceId,
                         principalTable: "Race",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MONSTER_SCALE",
+                        column: x => x.ScaleId,
+                        principalTable: "Scales",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -188,7 +229,8 @@ namespace RagnaLib.Infra.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     MonsterId = table.Column<int>(type: "integer", nullable: false),
                     LocationId = table.Column<int>(type: "integer", nullable: false),
-                    Quantity = table.Column<int>(type: "integer", nullable: false, defaultValue: 0)
+                    Quantity = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
+                    RespawnTime = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -241,7 +283,8 @@ namespace RagnaLib.Infra.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     MonsterId = table.Column<int>(type: "integer", nullable: false),
                     ItemId = table.Column<int>(type: "integer", nullable: false),
-                    DropRate = table.Column<int>(type: "integer", nullable: false)
+                    DropRate = table.Column<int>(type: "integer", nullable: false),
+                    Stealable = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -258,6 +301,34 @@ namespace RagnaLib.Infra.Migrations
                         principalTable: "Monster",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MonsterMvpDropMap",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    MonsterId = table.Column<int>(type: "integer", nullable: false),
+                    ItemId = table.Column<int>(type: "integer", nullable: false),
+                    Stealable = table.Column<bool>(type: "boolean", nullable: false),
+                    DropRate = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MonsterMvpDropMap", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MonsterMvpDropMap_Item_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Item",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MonsterMvpDropMap_Monster_MonsterId",
+                        column: x => x.MonsterId,
+                        principalTable: "Monster",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -321,18 +392,28 @@ namespace RagnaLib.Infra.Migrations
                 columns: new[] { "Id", "EnName", "Name" },
                 values: new object[,]
                 {
-                    { 10, "plant", "planta" },
+                    { 9, "fish", "peixe" },
                     { 8, "undead", "morto-vivo" },
                     { 12, "null", "humano" },
-                    { 11, "null", "doram" },
+                    { 10, "plant", "planta" },
                     { 7, "insect", "inseto" },
-                    { 9, "fish", "peixe" },
+                    { 11, "null", "doram" },
                     { 5, "dragon", "dragão" },
-                    { 4, "demon", "demônio" },
-                    { 6, "human", "humanoide" },
-                    { 3, "brute", "bruto" },
+                    { 1, "formless", "amorfo" },
                     { 2, "angel", "anjo" },
-                    { 1, "formless", "amorfo" }
+                    { 6, "human", "humanoide" },
+                    { 4, "demon", "demônio" },
+                    { 3, "brute", "bruto" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Scales",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "small" },
+                    { 2, "medium" },
+                    { 3, "large" }
                 });
 
             migrationBuilder.InsertData(
@@ -341,6 +422,7 @@ namespace RagnaLib.Infra.Migrations
                 values: new object[,]
                 {
                     { 25, "Body", "Armor" },
+                    { 33, "-", "Cannonball" },
                     { 26, "Garment", "Garment" },
                     { 27, "Shoes", "Shoes" },
                     { 28, "-", "Pet" },
@@ -348,12 +430,11 @@ namespace RagnaLib.Infra.Migrations
                     { 30, "-", "Regeneration" },
                     { 31, "-", "Taming item" },
                     { 32, "-", "Arrow" },
-                    { 33, "-", "Cannonball" },
                     { 34, "-", "Throw Weapon" },
-                    { 36, "-", "-" },
-                    { 24, "Middle Headgear", "Helm" },
-                    { 37, "-", "Pistol" },
                     { 38, "-", "Rifle" },
+                    { 36, "-", "-" },
+                    { 37, "-", "Pistol" },
+                    { 24, "Middle Headgear", "Helm" },
                     { 39, "Left Hand", "Shield" },
                     { 40, "Costume Garment", "Costume Garment" },
                     { 41, "Shadow Weapon", "Shadow Weapon" },
@@ -363,7 +444,7 @@ namespace RagnaLib.Infra.Migrations
                     { 45, "Right Shadow Accessory", "Shadow Acc. (Right)" },
                     { 35, "-", "Ammo" },
                     { 23, "Accessory", "Accessory (Left)" },
-                    { 20, "Both hand", "Shuriken" },
+                    { 19, "Both hand", "Grenade Launcher" },
                     { 21, "Accessory", "Accessory" },
                     { 46, "Left Shadow Accessory", "Shadow Acc. (Left)" },
                     { -1, "-", "Unknown" },
@@ -385,7 +466,7 @@ namespace RagnaLib.Infra.Migrations
                     { 16, "Both hand", "Katar" },
                     { 17, "Both hand", "Gatling Gun" },
                     { 18, "Both hand", "Shotgun" },
-                    { 19, "Both hand", "Grenade Launcher" },
+                    { 20, "Both hand", "Shuriken" },
                     { 22, "Accessory", "Accessory (Right)" },
                     { 47, "Upper Costume Headgear", "Costume Helm" }
                 });
@@ -421,6 +502,11 @@ namespace RagnaLib.Infra.Migrations
                 column: "RaceId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Monster_ScaleId",
+                table: "Monster",
+                column: "ScaleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MonsterItemMap_ItemId",
                 table: "MonsterItemMap",
                 column: "ItemId");
@@ -428,6 +514,16 @@ namespace RagnaLib.Infra.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_MonsterItemMap_MonsterId",
                 table: "MonsterItemMap",
+                column: "MonsterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MonsterMvpDropMap_ItemId",
+                table: "MonsterMvpDropMap",
+                column: "ItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MonsterMvpDropMap_MonsterId",
+                table: "MonsterMvpDropMap",
                 column: "MonsterId");
 
             migrationBuilder.CreateIndex(
@@ -448,6 +544,9 @@ namespace RagnaLib.Infra.Migrations
 
             migrationBuilder.DropTable(
                 name: "MonsterItemMap");
+
+            migrationBuilder.DropTable(
+                name: "MonsterMvpDropMap");
 
             migrationBuilder.DropTable(
                 name: "MonsterPerLocationMap");
@@ -475,6 +574,9 @@ namespace RagnaLib.Infra.Migrations
 
             migrationBuilder.DropTable(
                 name: "Race");
+
+            migrationBuilder.DropTable(
+                name: "Scales");
         }
     }
 }

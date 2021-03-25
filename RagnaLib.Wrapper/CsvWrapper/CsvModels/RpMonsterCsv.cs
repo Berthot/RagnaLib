@@ -5,6 +5,9 @@ namespace RagnaLib.Wrapper.CsvWrapper.CsvModels
     public class RpMonsterCsv
     {
         [Name("id")] public int Id { get; set; }
+        [Name("id_element"), Optional] public int IdElement { get; set; }
+        [Name("id_race"), Optional] public int IdRace { get; set; }
+        [Name("id_scale"), Optional] public int IdScale { get; set; }
         [Name("dbname")] public string DbName { get; set; }
         [Name("name")] public string Name { get; set; }
         [Name("attackrange")] public int AttackRange { get; set; }

@@ -8,5 +8,6 @@ namespace RagnaLib.Domain.Entities
         public int Quantity { get; set; }
         public virtual Monster Monster { get; set; }
         public virtual Location Location { get; set; }
+        public int RespawnTime { get; set; }
     }
 }

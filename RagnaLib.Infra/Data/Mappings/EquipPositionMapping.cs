@@ -14,7 +14,6 @@ namespace RagnaLib.Infra.Data.Mappings
             entity.ToTable("EquipPosition");
 
             entity.Property(x => x.Id)
-                .ValueGeneratedOnAdd()
                 .UseIdentityColumn();
 
             entity.Property(x => x.Position)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using RagnaLib.Domain.Entities;
+using RagnaLib.Domain.ValueObjects;
 using RagnaLib.Infra.Data;
 using RagnaLib.Wrapper.CsvWrapper;
 using RagnaLib.Wrapper.CsvWrapper.CsvModels;
@@ -183,17 +184,16 @@ namespace RagnaLib.Wrapper
         {
             var lista = new List<Item>();
             var ids = new List<string>();
-            
+
             foreach (var itemCsv in itemsRagnaPride)
             {
-                if(ids.Contains(itemCsv.Id))
+                if (ids.Contains(itemCsv.Id))
                     continue;
                 ids.Add(itemCsv.Id);
                 lista.Add(_factory.GetItemModel(itemCsv));
             }
 
             return lista;
-
         }
 
         public void SetItemSubType(List<Item> itemModels, List<RpItemCsv> rpItems)
@@ -344,7 +344,7 @@ namespace RagnaLib.Wrapper
             var positions = _context.EquipPositions.ToList();
 
             var dic = EquipLocationDic();
-            
+
             var csv = _readCsv.ReadDynamicClass<CardPosition>(
                 "/home/bertho/Documents/Git/RagnaLib/RagnaLib.Wrapper/Resources/CardLocation.csv");
 
@@ -358,7 +358,7 @@ namespace RagnaLib.Wrapper
                 if (item.ItemType.Id == 9)
                 {
                     var test = csv.FirstOrDefault(x => x.Id == item.Id.ToString());
-                    if(test != default)
+                    if (test != default)
                     {
                         locationId =
                             int.Parse(csv.FirstOrDefault(x => x.Id == item.Id.ToString()).LocationId.ToString());
@@ -372,6 +372,7 @@ namespace RagnaLib.Wrapper
                         continue;
                     }
                 }
+
                 item.ItemEquipPositionMaps = new List<ItemEquipPositionMap>()
                 {
                     new ItemEquipPositionMap()
@@ -390,7 +391,6 @@ namespace RagnaLib.Wrapper
                 _repo.CreateItemRange(itemModels);
                 _repo.SaveChanges();
                 transaction.Commit();
-
             }
             catch (Exception ex)
             {
@@ -400,12 +400,189 @@ namespace RagnaLib.Wrapper
             }
         }
 
-        public List<MonsterCsv> GetMonsterByCsv()
-        {
-            var csv = _readCsv.ReadDynamicClass<MonsterCsv>(
-                "/home/bertho/Documents/Git/RagnaLib/RagnaLib.Wrapper/Resources/CardLocation.csv");
 
-            return csv;
+        public void GetMonsterByApi()
+        {
+            // // RpMonsterCsv
+            // var api = new RagnaPrideApi();
+            // var acc = 0;
+            // var lista = new List<RpMonsterCsv>();
+            // // var ids = Enumerable.Range(1001, 1004 - 1001);
+            // var ids = Enumerable.Range(1001, 3509 - 1001);
+            // // foreach (var id in Enumerable.Range(1001, 3508))
+            // foreach (var id in ids)
+            // {
+            //     try
+            //     {
+            //         acc++;
+            //         var item = api.GetMonster(id);
+            //         // var print = $"{item.id} - {item.name}";
+            //         // Console.WriteLine(print);
+            //         var rpItemCsv = _factory.GetMonsterRpCsv(item);
+            //         lista.Add(rpItemCsv);
+            //         Console.WriteLine($"{id} - {rpItemCsv.Name}");
+            //     }
+            //     catch (Exception e)
+            //     {
+            //         Console.WriteLine($"{id} - ERROR");
+            //     }
+            // }
+            //
+            // _writerCsv.WriteDynamicCsvByClass($"/home/bertho/Documents/Git/RagnaLib/RagnaLib.Wrapper/Resources/RagnaPrideMonsters/" +
+            //                                   $"ragnaplace_monsters", lista);
+        }
+
+        public List<RpMonsterCsv> GetMonsterByCsv()
+        {
+            var monster = new ReadCsv().ReadDynamicClass<RpMonsterCsv>(
+                "/home/bertho/Documents/Git/RagnaLib/RagnaLib.Wrapper/Resources/RagnaPrideMonsters/ragnaPride_monsters_test.csv");
+            return monster;
+        }
+
+
+        public List<Monster> GetMonsterModel(List<RpMonsterCsv> monsterCsv)
+        {
+            var monsters = monsterCsv
+                .Select(x => _factory.GetMonsterEntity(x)).ToList();
+
+            var items = _repo.GetItems();
+            var locations = _repo.GetLocations();
+            var scales = _repo.GetScales();
+            var races = _repo.GetRaces();
+            var elements = _repo.GetElements();
+
+            foreach (var monster in monsters)
+            {
+                var monsterCsvv = monsterCsv.FirstOrDefault(x => x.Id == monster.Id);
+                var drop = monsterCsvv.Drop;
+                var spawns = monsterCsvv.Spawn;
+                monster.MonsterItemMaps = GetItemFromCsv(monster.Id, drop, items);
+                monster.MonsterPerLocationMaps = GetMonsterPerMap(monster.Id, spawns, locations);
+                if (elements.FirstOrDefault(x => x.Id == monsterCsvv.IdElement) == default)
+                {
+                    var x = 1 + 1;
+                }
+                monster.Element = elements.FirstOrDefault(x => x.Id == monsterCsvv.IdElement);
+                monster.Scale = scales.FirstOrDefault(x => x.Id == monsterCsvv.IdScale);
+                monster.Race = races.FirstOrDefault(x => x.Id == monsterCsvv.IdRace);
+                if (monster.IsMvp)
+                    monster.MonsterMvpDropMaps = GetMonsterMvpDrop(monster.Id, drop, items);
+            }
+
+
+            return monsters;
+        }
+
+        private List<MonsterMvpDropMap> GetMonsterMvpDrop(int monsterId, string dropStr, List<Item> items)
+        {
+            // itemID;chance;stealprotected;serverType
+            var drop = dropStr
+                .Split("|")
+                .Where(x => x != "")
+                .ToList();
+
+            var lista = new List<MonsterMvpDropMap>();
+            foreach (var d in drop)
+            {
+                var l = d.Split(";");
+
+                var item = items.FirstOrDefault(x => x.Id == int.Parse(l[0].ToString()));
+                if (item == default)
+                {
+                    Console.WriteLine($"NOT FOUND MVPDROP || ,{monsterId},{l[0]},{l[1]},{l[2]}");
+                    continue;
+                }
+
+                var chance = l[1];
+                var steal = bool.Parse(l[2].ToLower());
+                lista.Add(new MonsterMvpDropMap()
+                {
+                    Item = item,
+                    DropRate = Convert.ToInt32(chance),
+                    Stealable = steal
+                });
+            }
+
+            return lista;
+        }
+
+        private IEnumerable<MonsterPerLocationMap> GetMonsterPerMap(int monsterId, string spawnsString, List<Location> locations)
+        {
+            var spawnsList = spawnsString
+                .Split("|")
+                .Where(x => x != "")
+                .ToList();
+            var lista = new List<MonsterPerLocationMap>();
+            foreach (var spn in spawnsList)
+            {
+                // map;amount;respawnTime
+                var l = spn.Split(";");
+                var location = locations.FirstOrDefault(x => x.NameId == l[0]);
+                var amount = int.Parse(l[1]);
+                var time = int.Parse(l[2]);
+                if (location == default)
+                {
+                    Console.WriteLine($"NOT FOUND SPAWN || ,{monsterId},{l[0]},{l[1]},{l[2]}");
+                    continue;
+                }
+
+                lista.Add(
+                    new MonsterPerLocationMap() {Location = location, Quantity = amount, RespawnTime = time}
+                );
+            }
+
+            return lista;
+        }
+
+        private IEnumerable<MonsterItemMap> GetItemFromCsv(int idMonster, string dropString, List<Item> items)
+        {
+            // itemID;chance;stealprotected;serverType
+            var drop = dropString
+                .Split("|")
+                .Where(x => x != "")
+                .ToList();
+
+            var lista = new List<MonsterItemMap>();
+            foreach (var d in drop)
+            {
+                var l = d.Split(";");
+
+                var item = items.FirstOrDefault(x => x.Id == int.Parse(l[0].ToString()));
+                if (item == default)
+                {
+                    Console.WriteLine($"NOT FOUND || ,{idMonster},{l[0]},{l[1]},{l[2]}");
+                    continue;
+                }
+
+                var chance = l[1];
+                var steal = bool.Parse(l[2].ToLower());
+                lista.Add(new MonsterItemMap()
+                {
+                    Item = item,
+                    DropRate = Convert.ToInt32(chance),
+                    Stealable = steal
+                });
+            }
+
+            return lista;
+        }
+
+        public void CreateMonsterRange(List<Monster> monsterModel)
+        {
+            using var transaction = _context.Database.BeginTransaction();
+            try
+            {
+                _repo.CreateMonsterRange(monsterModel);
+                _repo.SaveChanges();
+                transaction.Commit();
+
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                Console.WriteLine(ex);
+                throw;
+            }
         }
     }
 }

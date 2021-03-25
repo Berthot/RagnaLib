@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RagnaLib.Infra.Data;
@@ -17,13 +18,22 @@ namespace RagnaLib.Wrapper
             // SetLocations();
             // SetElements();
             // SetItems();
+            SetMonster();
             // var ids = new ReadCsv().ReadDynamicClass<Identity>("item_id.csv");
             // GetItemsFromRagnaPride();
+            // GetMonsterByRagnaPrideApi();
         }
 
+        public static void GetMonsterByRagnaPrideApi()
+        {
+            Service.GetMonsterByApi();
+        }
+        
         public static void SetMonster()
         {
-            var monster = Service.GetMonsterByCsv();
+            var monsters = Service.GetMonsterByCsv();
+            var monsterModel = Service.GetMonsterModel(monsters);
+            Service.CreateMonsterRange(monsterModel);
         }
 
         private static void SetItems()
@@ -44,6 +54,22 @@ namespace RagnaLib.Wrapper
         {
             // Console.WriteLine(ids.Count); -- 16.329
             // 8
+            // var ids = new List<Identity>() {
+            //     new Identity(){Id = 7214},
+            //     new Identity(){Id = 22657},
+            //     new Identity(){Id = 6732},
+            //     new Identity(){Id = 7654},
+            //     new Identity(){Id = 27326},
+            //     new Identity(){Id = 27327},
+            //     new Identity(){Id = 27324},
+            //     new Identity(){Id = 27325},
+            //     new Identity(){Id = 19916},
+            //     new Identity(){Id = 11599},
+            //     new Identity(){Id = 22843},
+            //     new Identity(){Id = 7635},
+            //
+            // };
+            // Service.GetItemsFromRagnaPride(ids, "add_items_new_items");
             // Service.GetItemsFromRagnaPride(Service.GetIdsRange(0, 16320), "TOTAL");
             // Service.GetItemsFromRagnaPride(Service.GetIdsRange(0, 1000), "0");
             // Service.GetItemsFromRagnaPride(Service.GetIdsRange(1001, 2000), "1");
@@ -62,7 +88,6 @@ namespace RagnaLib.Wrapper
             // Service.GetItemsFromRagnaPride(Service.GetIdsRange(14001, 15000), "14");
             // Service.GetItemsFromRagnaPride(Service.GetIdsRange(15001, 16000), "15");
             // Service.GetItemsFromRagnaPride(Service.GetIdsRange(16001, 16328), "16");
-            
         }
 
         private static void SetElements()

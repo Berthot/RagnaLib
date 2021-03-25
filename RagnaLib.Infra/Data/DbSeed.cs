@@ -13,6 +13,7 @@ namespace RagnaLib.Infra.Data
             builder.Entity<Race>().HasData(SeedRace.SeedsRace());
             builder.Entity<SubType>().HasData(SeedItemSubType.SubTypeSeed());
             builder.Entity<EquipPosition>().HasData(SeedEquipPosition.EquipPositionSeed());
+            builder.Entity<Scale>().HasData(SeedScale.ScaleSeed());
 
         }
     }

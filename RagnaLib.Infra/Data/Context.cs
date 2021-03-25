@@ -27,6 +27,7 @@ namespace RagnaLib.Infra.Data
         public DbSet<MonsterItemMap> MonsterItemMaps { get; set; }
         public DbSet<MonsterPerLocationMap> MonsterPerLocationMaps { get; set; }
         public DbSet<Race> Race { get; set; }
+        public DbSet<Scale> Scales { get; set; }
         public DbSet<SubType> SubTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
