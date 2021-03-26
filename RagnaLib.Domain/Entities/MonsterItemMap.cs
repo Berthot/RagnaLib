@@ -1,6 +1,6 @@
 namespace RagnaLib.Domain.Entities
 {
-    public class MonsterItemMap
+    public class MonsterItemMap : Entity
     {
         public int Id { get; set; }
         public int MonsterId { get; set; }

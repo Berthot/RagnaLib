@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace RagnaLib.Domain.Entities
 {
-    public class SubType
+    public class SubType : Entity
     {
         public int Id { get; set; }
         public string Name { get; set; }

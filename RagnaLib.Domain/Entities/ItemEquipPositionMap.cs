@@ -1,6 +1,6 @@
 namespace RagnaLib.Domain.Entities
 {
-    public class ItemEquipPositionMap
+    public class ItemEquipPositionMap : Entity
     {
         public int Id { get; set; }
         
