@@ -4,19 +4,21 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using CsvHelper;
 
 namespace RagnaLib.Wrapper.CsvWrapper
 {
     public class ReadCsv
     {
-        private const string ResourcePath = "/home/bertho/Documents/Git/RagnaLib/RagnaLib.Wrapper/Resources";
+        private readonly string _resourcePath =
+            $"{Environment.CurrentDirectory.Split("bin/")[0]}Resources/";
 
         public List<T> ReadDynamicClass<T>(string fileName)
         {
             try
             {
-                var path = Path.Combine(ResourcePath, fileName);
+                var path = Path.Combine(_resourcePath, fileName);
                 using var reader = new StreamReader(path);
                 using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
                 var records = csv.GetRecords<T>();
@@ -24,7 +26,7 @@ namespace RagnaLib.Wrapper.CsvWrapper
             }
             catch (Exception ex)
             {
-                Console.WriteLine(Path.Combine(ResourcePath, fileName).ToString());
+                Console.WriteLine($"ERRO ao ler o path [ {_resourcePath} ] + [ {fileName} ]");
                 Process.GetCurrentProcess().Kill();
                 throw;
             }

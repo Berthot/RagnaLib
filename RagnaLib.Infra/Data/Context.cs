@@ -19,13 +19,18 @@ namespace RagnaLib.Infra.Data
         public DbSet<EquipPosition> EquipPositions { get; set; }
 
         public DbSet<Item> Items { get; set; }
+        
         public DbSet<ItemEquipPositionMap> ItemEquipPositionMaps { get; set; }
-
         public DbSet<ItemType> ItemTypes { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Monster> Monsters { get; set; }
+        
         public DbSet<MonsterItemMap> MonsterItemMaps { get; set; }
+        
+        public DbSet<MonsterMvpDropMap> MonsterMvpDropMaps { get; set; }
+
         public DbSet<MonsterPerLocationMap> MonsterPerLocationMaps { get; set; }
+        
         public DbSet<Race> Race { get; set; }
         public DbSet<Scale> Scales { get; set; }
         public DbSet<SubType> SubTypes { get; set; }
@@ -40,7 +45,7 @@ namespace RagnaLib.Infra.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("RAGNAROK") ?? "");
-            // services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("EMPLOYER"));
+            // optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("RAG") ?? "");
         }
     }
 }

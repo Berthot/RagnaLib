@@ -9,7 +9,7 @@ using RagnaLib.Infra.Data;
 namespace RagnaLib.Infra.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210325030440_firstMigration")]
+    [Migration("20210325220251_firstMigration")]
     partial class firstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -591,7 +591,7 @@ namespace RagnaLib.Infra.Migrations
 
                     b.HasIndex("MonsterId");
 
-                    b.ToTable("MonsterMvpDropMap");
+                    b.ToTable("MonsterMvpDropMaps");
                 });
 
             modelBuilder.Entity("RagnaLib.Domain.Entities.MonsterPerLocationMap", b =>

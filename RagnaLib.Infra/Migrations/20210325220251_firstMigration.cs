@@ -304,7 +304,7 @@ namespace RagnaLib.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MonsterMvpDropMap",
+                name: "MonsterMvpDropMaps",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -316,15 +316,15 @@ namespace RagnaLib.Infra.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MonsterMvpDropMap", x => x.Id);
+                    table.PrimaryKey("PK_MonsterMvpDropMaps", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MonsterMvpDropMap_Item_ItemId",
+                        name: "FK_MonsterMvpDropMaps_Item_ItemId",
                         column: x => x.ItemId,
                         principalTable: "Item",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MonsterMvpDropMap_Monster_MonsterId",
+                        name: "FK_MonsterMvpDropMaps_Monster_MonsterId",
                         column: x => x.MonsterId,
                         principalTable: "Monster",
                         principalColumn: "Id",
@@ -517,13 +517,13 @@ namespace RagnaLib.Infra.Migrations
                 column: "MonsterId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MonsterMvpDropMap_ItemId",
-                table: "MonsterMvpDropMap",
+                name: "IX_MonsterMvpDropMaps_ItemId",
+                table: "MonsterMvpDropMaps",
                 column: "ItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MonsterMvpDropMap_MonsterId",
-                table: "MonsterMvpDropMap",
+                name: "IX_MonsterMvpDropMaps_MonsterId",
+                table: "MonsterMvpDropMaps",
                 column: "MonsterId");
 
             migrationBuilder.CreateIndex(
@@ -546,7 +546,7 @@ namespace RagnaLib.Infra.Migrations
                 name: "MonsterItemMap");
 
             migrationBuilder.DropTable(
-                name: "MonsterMvpDropMap");
+                name: "MonsterMvpDropMaps");
 
             migrationBuilder.DropTable(
                 name: "MonsterPerLocationMap");

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using RagnaLib.Domain.Entities;
 
 namespace RagnaLib.Infra.Data.Seeds

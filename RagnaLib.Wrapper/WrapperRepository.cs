@@ -65,5 +65,20 @@ namespace RagnaLib.Wrapper
         {
             return _context.Scales.ToList();
         }
+
+        public List<SubType> GetSubTypes()
+        {
+            return _context.SubTypes.ToList();
+        }
+
+        public List<ItemType> GetItemTypes()
+        {
+            return _context.ItemTypes.ToList();
+        }
+
+        public List<EquipPosition> GetEquipPosition()
+        {
+            return _context.EquipPositions.ToList();
+        }
     }
 }

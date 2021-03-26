@@ -17,14 +17,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Models" />
-      <Folder Include="Resources\ragnaPrideItems" />
-      <Folder Include="Resources\RagnaPrideMonsters" />
+      <ProjectReference Include="..\RagnaLib.Domain\RagnaLib.Domain.csproj" />
+      <ProjectReference Include="..\RagnaLib.Infra\RagnaLib.Infra.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\RagnaLib.Domain\RagnaLib.Domain.csproj" />
-      <ProjectReference Include="..\RagnaLib.Infra\RagnaLib.Infra.csproj" />
+      <None Remove="Resources\ragnarok_public_Item.csv" />
     </ItemGroup>
 
 </Project>
