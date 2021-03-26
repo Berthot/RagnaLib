@@ -44,8 +44,8 @@ namespace RagnaLib.Infra.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("RAGNAROK") ?? "");
-            // optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("RAG") ?? "");
+            // optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("RAGNAROK") ?? "");
+            optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("RAG") ?? "");
         }
     }
 }

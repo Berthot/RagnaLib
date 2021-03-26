@@ -1,11 +1,11 @@
 using System.Collections.Generic;
+using RagnaLib.Domain.Entities.Base;
 using RagnaLib.Domain.ValueObjects;
 
 namespace RagnaLib.Domain.Entities
 {
     public class Monster : Entity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string DbName { get; set; }
         public int Level { get; set; }

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+using RagnaLib.Domain.Entities.Base;
 
 namespace RagnaLib.Domain.Entities
 {
     public class Race : Entity
     {
-        public int Id { get; set; }
         
         public string Name { get; set; }
         
