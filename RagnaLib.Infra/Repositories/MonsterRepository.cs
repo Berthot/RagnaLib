@@ -1,20 +1,25 @@
 using System.Collections.Generic;
+using RagnaLib.Domain.Bases.Abstracts;
 using RagnaLib.Domain.Entities;
 using RagnaLib.Domain.Repositories;
+using RagnaLib.Infra.Data;
 
 namespace RagnaLib.Infra.Repositories
 {
-    public class MonsterRepository : IMonsterRepository
+    public class MonsterRepository : RepositoryBase<Context, Monster>
     {
-        public Monster GetById(int id)
+        public MonsterRepository(Context context) : base(context)
+        {
+        }
+
+        public override Monster GetById(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public List<Monster> GetAll()
+        public override List<Monster> GetAll()
         {
             throw new System.NotImplementedException();
         }
-
     }
 }
