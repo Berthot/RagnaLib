@@ -1,4 +1,4 @@
-namespace RagnaLib.Domain.Entities.Base
+namespace RagnaLib.Domain.Bases.Abstracts
 {
     public abstract class Entity
     {

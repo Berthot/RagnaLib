@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-using RagnaLib.Domain.Entities.Base;
+using RagnaLib.Domain.Bases;
+using RagnaLib.Domain.Bases.Abstracts;
 
 namespace RagnaLib.Domain.Entities
 {

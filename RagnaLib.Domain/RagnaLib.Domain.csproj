@@ -8,4 +8,8 @@
       <PackageReference Include="FluentValidator.Core" Version="1.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Services" />
+    </ItemGroup>
+
 </Project>
