@@ -22,7 +22,7 @@ namespace RagnaLib.Wrapper.CsvWrapper
         public async Task AppendInFile(string fileName, string text)
         {
             var path = Path.Combine(ResourcePath, $"{fileName}.csv");
-            await using StreamWriter file = new(path, append: true);
+            await using StreamWriter file = new StreamWriter(path, true);
             await file.WriteLineAsync(text);
         }
         
