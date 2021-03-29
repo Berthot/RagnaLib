@@ -3,12 +3,11 @@ using RagnaLib.Domain.Bases.Abstracts;
 
 namespace RagnaLib.Domain.Bases.Interfaces
 {
-    public interface IRepositoryBase<out TEntity> where TEntity : Entity
+    public interface IRepositoryBase<TEntity> where TEntity : Entity
     {
         TEntity GetById(int id);
 
-        IEnumerable<TEntity> GetAll();
+        List<TEntity> GetAll();
 
-        void Dispose();
     }
 }

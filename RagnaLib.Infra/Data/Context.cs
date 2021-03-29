@@ -1,10 +1,11 @@
 using System;
 using Microsoft.EntityFrameworkCore;
+using RagnaLib.Domain.Bases.Interfaces;
 using RagnaLib.Domain.Entities;
 
 namespace RagnaLib.Infra.Data
 {
-    public class Context : DbContext
+    public class Context : DbContext, IContext
     {
         public Context()
         {
