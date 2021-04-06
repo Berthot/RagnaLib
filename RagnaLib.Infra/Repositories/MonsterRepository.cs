@@ -23,12 +23,8 @@ namespace RagnaLib.Infra.Repositories
 
         public List<Monster> GetAll()
         {
-            throw new System.NotImplementedException();
-        }
-
-        List<Monster> IMonsterRepository.GetAll()
-        {
             return _context.Monsters.ToList();
+
         }
     }
 }
