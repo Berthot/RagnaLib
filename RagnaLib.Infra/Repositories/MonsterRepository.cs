@@ -7,18 +7,14 @@ using RagnaLib.Infra.Data;
 
 namespace RagnaLib.Infra.Repositories
 {
-    public class MonsterRepository : RepositoryBase<IContext, Monster>
+    public class MonsterRepository : IMonsterRepository
     {
-        public MonsterRepository(IContext context) : base(context)
-        {
-        }
-
-        public override Monster GetById(int id)
+        public Monster GetById(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public override List<Monster> GetAll()
+        public List<Monster> GetAll()
         {
             throw new System.NotImplementedException();
         }
