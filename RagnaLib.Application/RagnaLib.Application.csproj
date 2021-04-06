@@ -5,7 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="FluentValidator.Core" Version="1.0.1" />
+      <ProjectReference Include="..\RagnaLib.Domain\RagnaLib.Domain.csproj" />
+      <ProjectReference Include="..\RagnaLib.Infra\RagnaLib.Infra.csproj" />
     </ItemGroup>
 
 </Project>

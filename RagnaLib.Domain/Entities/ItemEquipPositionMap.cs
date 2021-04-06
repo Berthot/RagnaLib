@@ -1,8 +1,10 @@
+using RagnaLib.Domain.Bases;
+using RagnaLib.Domain.Bases.Abstracts;
+
 namespace RagnaLib.Domain.Entities
 {
-    public class ItemEquipPositionMap
+    public class ItemEquipPositionMap : Entity
     {
-        public int Id { get; set; }
         
         public int ItemId { get; set; }
         

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using RagnaLib.Domain.Bases;
+using RagnaLib.Domain.Bases.Abstracts;
 
 namespace RagnaLib.Domain.Entities
 {
-    public class EquipPosition
+    public class EquipPosition : Entity
     {
-        public int Id { get; set; }
         
         public string Position { get; set; }
         

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using RagnaLib.Domain.Bases;
+using RagnaLib.Domain.Bases.Abstracts;
 
 namespace RagnaLib.Domain.Entities
 {
-    public class Item
+    public class Item : Entity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Price { get; set; }
         public string SmallImageUrl { get; set; }

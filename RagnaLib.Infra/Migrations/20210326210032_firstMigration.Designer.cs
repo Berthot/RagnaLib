@@ -9,7 +9,7 @@ using RagnaLib.Infra.Data;
 namespace RagnaLib.Infra.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210325220251_firstMigration")]
+    [Migration("20210326210032_firstMigration")]
     partial class firstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

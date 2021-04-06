@@ -6,6 +6,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RagnaLib.Wrapper", "RagnaLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RagnaLib.Infra", "RagnaLib.Infra\RagnaLib.Infra.csproj", "{B4BB3D02-46F3-4F60-B6F7-DCC659226474}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RagnaLib.API", "RagnaLib.API\RagnaLib.API.csproj", "{C87E2355-1FA8-4BED-8FF2-7B38C9DFEA1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RagnaLib.Application", "RagnaLib.Application\RagnaLib.Application.csproj", "{9E073742-4472-477C-9AB1-5DED28D064DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{B4BB3D02-46F3-4F60-B6F7-DCC659226474}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4BB3D02-46F3-4F60-B6F7-DCC659226474}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4BB3D02-46F3-4F60-B6F7-DCC659226474}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C87E2355-1FA8-4BED-8FF2-7B38C9DFEA1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C87E2355-1FA8-4BED-8FF2-7B38C9DFEA1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C87E2355-1FA8-4BED-8FF2-7B38C9DFEA1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C87E2355-1FA8-4BED-8FF2-7B38C9DFEA1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E073742-4472-477C-9AB1-5DED28D064DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E073742-4472-477C-9AB1-5DED28D064DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E073742-4472-477C-9AB1-5DED28D064DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E073742-4472-477C-9AB1-5DED28D064DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
