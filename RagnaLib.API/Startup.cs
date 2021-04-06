@@ -31,7 +31,7 @@ namespace RagnaLib.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "RagnaLibAPI", Version = "v1"});
             });
-            services.AddDbContext<IContext,Context>(options => 
+            services.AddDbContext<Context>(options => 
                 options.UseNpgsql(Environment.GetEnvironmentVariable("RAG") ?? string.Empty)
                 );
             

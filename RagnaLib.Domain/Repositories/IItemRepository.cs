@@ -3,7 +3,7 @@ using RagnaLib.Domain.Entities;
 
 namespace RagnaLib.Domain.Repositories
 {
-    public interface IItemRepository : IRepositoryBase<Item>
+    public interface IItemRepository : IRepository<Item>
     {
         
     }
