@@ -32,7 +32,7 @@ namespace RagnaLib.API
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "RagnaLibAPI", Version = "v1"});
             });
             services.AddDbContext<Context>(options => 
-                options.UseNpgsql(Environment.GetEnvironmentVariable("RAG") ?? string.Empty)
+                options.UseNpgsql(Environment.GetEnvironmentVariable("HEROKU_RAG") ?? string.Empty)
                 );
             
             services.AddTransient<IMonsterRepository, MonsterRepository>();
