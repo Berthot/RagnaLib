@@ -3,7 +3,7 @@ WORKDIR /app
  
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["RagnaLib.API/RagnaLib.API.csproj", "PizzaSystemAPI/"]
+COPY ["RagnaLib.API/RagnaLib.API.csproj", "RagnaLib.API/"]
 RUN dotnet restore "RagnaLib.API/RagnaLib.API.csproj"
 WORKDIR "/src/RagnaLib.API"
 COPY . .
