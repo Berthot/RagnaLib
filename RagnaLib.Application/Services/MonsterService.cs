@@ -5,11 +5,11 @@ namespace RagnaLib.Application.Services
 {
     public class MonsterService : IMonsterService
     {
-        private readonly MonsterFactory _factory;
+        private readonly Monster _factory;
 
         public MonsterService()
         {
-            _factory = new MonsterFactory();
+            _factory = new Monster();
         }
     }
 }
