@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using RagnaLib.Application.Factory;
 using RagnaLib.Application.Services;
 using RagnaLib.Domain.Bases.Interfaces;
 using RagnaLib.Domain.Repositories;
@@ -37,8 +38,12 @@ namespace RagnaLib.API
             
             services.AddTransient<IMonsterRepository, MonsterRepository>();
             services.AddTransient<IItemRepository, ItemRepository>();
+            
             services.AddTransient<IItemService, ItemService>();
             services.AddTransient<IMonsterService, MonsterService>();
+            
+            services.AddTransient<MonsterFactory>();
+            services.AddTransient<ItemFactory>();
             
             
             

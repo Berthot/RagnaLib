@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using RagnaLib.Domain.Entities;
 using RagnaLib.Domain.Repositories;
 using RagnaLib.Infra.Data;
@@ -15,16 +17,18 @@ namespace RagnaLib.Infra.Repositories
             _context = context;
         }
 
-        public Monster GetById(int id)
+        public async Task<Monster> GetById(int id)
         {
-            return _context.Monsters.FirstOrDefault(x => x.Id == id);
-
+            return await _context
+                .Monsters
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public List<Monster> GetAll()
+        public async Task<List<Monster>> GetAll()
         {
-            return _context.Monsters.ToList();
-
+            return await _context
+                .Monsters
+                .ToListAsync();
         }
     }
 }

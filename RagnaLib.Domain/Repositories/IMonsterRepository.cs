@@ -6,6 +6,6 @@ namespace RagnaLib.Domain.Repositories
 {
     public interface IMonsterRepository: IRepository<Monster>
     {
-        List<Monster> GetAll();
+
     }
 }
