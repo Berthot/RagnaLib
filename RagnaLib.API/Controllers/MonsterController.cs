@@ -9,7 +9,7 @@ using RagnaLib.Domain.Services;
 namespace RagnaLib.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class MonsterController : ControllerBase
     {
         private readonly IMonsterRepository _repo;
