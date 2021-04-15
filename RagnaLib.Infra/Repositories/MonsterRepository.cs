@@ -30,5 +30,20 @@ namespace RagnaLib.Infra.Repositories
                 .Monsters
                 .ToListAsync();
         }
+
+        public Task<List<Scale>> GetMonsterScales()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<List<Race>> GetRaces()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<List<Element>> GetElements()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

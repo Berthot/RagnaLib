@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,6 +32,21 @@ namespace RagnaLib.Infra.Repositories
         public Task<List<Item>> GetAll()
         {
             return _context.Items.ToListAsync();
+        }
+
+        public Task<List<SubType>> GetSubTypes()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Type>> GetTypes()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<EquipPosition>> GetEquipPositions()
+        {
+            throw new NotImplementedException();
         }
     }
 }
