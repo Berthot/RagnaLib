@@ -19,9 +19,20 @@ namespace RagnaLib.Infra.Repositories
 
         public async Task<Monster> GetById(int id)
         {
-            return await _context
+            var y = await _context
                 .Monsters
+                .AsNoTracking()
+                .AsQueryable()
+                .Include(x => x.Scale)
+                .Include(x => x.Element)
+                .Include(x => x.Race)
+                .Include(x => x.MonsterPerLocationMaps)
+                .Include(x => x.MonsterMvpDropMaps)
+                .Include(x => x.MonsterItemMaps)
                 .FirstOrDefaultAsync(x => x.Id == id);
+            
+            return y;
+
         }
 
         public async Task<List<Monster>> GetAll()
