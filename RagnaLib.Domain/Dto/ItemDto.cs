@@ -1,4 +1,4 @@
-namespace RagnaLib.Application.Dto
+namespace RagnaLib.Domain.Dto
 {
     public class ItemDto
     {

@@ -43,10 +43,11 @@ namespace RagnaLib.Infra.Data
             base.OnModelCreating(builder);
         }
 
-        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        // {
-        //     // optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("RAGNAROK") ?? "");
-        //     optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("RAG") ?? "");
-        // }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            // var dbConn = Configuration.GetConnectionString("MySql");
+            // optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("RAGNAROK") ?? "");
+            optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("RAG") ?? "");
+        }
     }
 }

@@ -7,6 +7,9 @@
 
     <ItemGroup>
       <PackageReference Include="CsvHelper.Excel.Core" Version="22.1.1" />
+      <PackageReference Include="FirebaseAdmin" Version="2.1.0" />
+      <PackageReference Include="FirebaseAuthentication.net" Version="3.7.1" />
+      <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

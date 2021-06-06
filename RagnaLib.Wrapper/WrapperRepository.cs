@@ -80,5 +80,20 @@ namespace RagnaLib.Wrapper
         {
             return _context.EquipPositions.ToList();
         }
+
+        public IEnumerable<int> GetMonstersIds()
+        {
+            return _context.Monsters.Select(x => x.Id).ToList();
+        }
+
+        public IEnumerable<int> GetItemCardIds()
+        {
+            return _context.Items.Where(x => x.CardPrefix != string.Empty).Select(x => x.Id);
+        }
+        
+        public IEnumerable<int> GetItemWithoutCardIds()
+        {
+            return _context.Items.Where(x => x.CardPrefix == string.Empty).Select(x => x.Id);
+        }
     }
 }

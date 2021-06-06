@@ -6,11 +6,12 @@ using CsvHelper;
 
 namespace RagnaLib.Wrapper.CsvWrapper
 {
-    public class WriterCsv
+    public static class WriterCsv
     {
-        private string ResourcePath = Directory.GetCurrentDirectory();
+        private static string ResourcePath = Directory.GetCurrentDirectory();
+        private const string LogPath = "/home/bertho/Documents/Git/RagnaLib/RagnaLib.Wrapper/Resources/download-log";
 
-        public void WriteDynamicCsvByClass<T>(string fileName, List<T> list)
+        public static void WriteDynamicCsvByClass<T>(string fileName, List<T> list)
         {
             
             var path = Path.Combine(ResourcePath, $"{fileName}.csv");
@@ -19,12 +20,20 @@ namespace RagnaLib.Wrapper.CsvWrapper
             csv.WriteRecords(list);
         }
         
-        public async Task AppendInFile(string fileName, string text)
+        public static async Task AppendInFile(string fileName, string text)
         {
             var path = Path.Combine(ResourcePath, $"{fileName}.csv");
-            await using StreamWriter file = new StreamWriter(path, true);
+            await using var file = new StreamWriter(path, true);
             await file.WriteLineAsync(text);
         }
+        
+        public static async Task AppendInLogFile(string fileName, string text)
+        {
+            var path = $"{LogPath}/{fileName}.csv";
+            var file = new StreamWriter(path, true);
+            await file.WriteLineAsync(text);
+        }
+
         
     }
 }

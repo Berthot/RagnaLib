@@ -34,7 +34,7 @@ namespace RagnaLib.API
             });
             services.AddDbContext<Context>(options => 
                 options.UseNpgsql(Environment.GetEnvironmentVariable("RAG") ?? string.Empty)
-                );
+            );
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );

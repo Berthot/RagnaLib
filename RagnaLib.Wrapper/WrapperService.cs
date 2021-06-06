@@ -1,6 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+using Firebase.Auth;
+using Firebase.Storage;
+using Google.Api.Gax.ResourceNames;
 using RagnaLib.Domain.Entities;
 using RagnaLib.Infra.Data;
 using RagnaLib.Wrapper.CsvWrapper;
@@ -153,6 +163,145 @@ namespace RagnaLib.Wrapper
             }
 
             return lista;
+        }
+
+
+        public void DownloadImages()
+        {
+            // DownloadMonsterGif();
+            // DownloadMonsterSmall();
+            // DownloadItemImage();
+            // DownloadItemSmallImage();
+            // DownloadItemCardImage();
+
+            // CardPrefix
+            // CardImageUrl
+            // ImageUrl
+            // CardImageUrl
+            // SmallImageUrl
+        }
+
+        private void DownloadItemImage()
+        {
+            var idMonsters = _repo.GetItemWithoutCardIds();
+            const string urlPath = @"bro/collection/";
+            const string outPath = "item-image";
+            Download(idMonsters, outPath, urlPath, "png");
+        }
+
+        private void DownloadItemSmallImage()
+        {
+            var idMonsters = _repo.GetItemWithoutCardIds();
+            const string urlPath = @"bro/item/";
+            const string outPath = "item-small";
+            Download(idMonsters, outPath, urlPath, "png");
+        }
+
+        private void DownloadItemCardImage()
+        {
+            var idMonsters = _repo.GetItemCardIds();
+            const string urlPath = @"bro/card/";
+            const string outPath = "item-card";
+            Download(idMonsters, outPath, urlPath, "png");
+        }
+
+        private void DownloadMonsterGif()
+        {
+            var idMonsters = _repo.GetMonstersIds();
+            const string urlPath = @"db/npc/gif/";
+            const string outPath = "monster-gif";
+            Download(idMonsters, outPath, urlPath, "gif");
+        }
+
+        private void DownloadMonsterSmall()
+        {
+            var idMonsters = _repo.GetMonstersIds();
+            const string urlPath = @"db/npc/small/";
+            const string outPath = "monster-small";
+            Download(idMonsters, outPath, urlPath, "png");
+        }
+
+        private static async void Download(IEnumerable<int> ids, string folderName, string urlPath, string extension)
+        {
+            using var webClient = new WebClient();
+            var basePath = @$"https://static.ragnaplace.com/{urlPath}/";
+            var outPath = @$"/home/bertho/Pictures/ragnaLib/{folderName}/";
+            var count = ids.Count();
+            foreach (var id in ids.OrderBy(i => i))
+            {
+                if (count % 100 == 0)
+                    Console.WriteLine($"COUNT         : {count}");
+                count--;
+                await DownloadFile(basePath, outPath, id.ToString(), extension, webClient, folderName);
+            }
+        }
+
+        private static async Task DownloadFile(string basePath, string outPath, string id, string extension,
+            WebClient webClient, string alias)
+        {
+            try
+            {
+                var dataArr = webClient.DownloadData($"{basePath}{id}.{extension}");
+                File.WriteAllBytes(@$"{outPath}{id}.{extension}", dataArr);
+                // Console.WriteLine($"DOWNLOAD OK   : {id}");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"DOWNLOAD ERROR: {id}");
+                await WriterCsv.AppendInLogFile($"{alias.Split("-")[0]}", $"{alias},{id},notFound");
+            }
+        }
+
+        public async Task SendImages()
+        {
+            // await SendImagesToFireBase("monster-gif");
+            // await SendImagesToFireBase("monster-small");
+            // await SendImagesToFireBase("item-card");
+            // await SendImagesToFireBase("item-small");
+            // await SendImagesToFireBase("item-image");
+        }
+
+        private static async Task SendImagesToFireBase(string folderName)
+        {
+            // var files = Directory.GetFiles("/home/bertho/Pictures/ragnaLib/item-image");
+            var files = Directory.GetFiles($"/home/bertho/Pictures/ragnaLib/{folderName}");
+            var count = files.Length;
+            Console.WriteLine($"Total: {count.ToString()}");
+            foreach (var file in files)
+            {
+                var fileName = file.Split("/").Last();
+                var stream = File.Open(file, FileMode.Open);
+                await UploadFilesToFirebase(stream, folderName, fileName);
+                
+                if (count % 100 == 0)
+                    Console.WriteLine($"COUNT-{folderName} : {count}");
+                count--;
+            }
+        }
+
+        private static async Task UploadFilesToFirebase(Stream stream, string fireBaseFolder, string fileName)
+        {
+            try
+            {
+                const string token ="token from firebase";
+                var task = new FirebaseStorage("name.appspot.com",
+                        new FirebaseStorageOptions
+                        {
+                            AuthTokenAsyncFactory = () => Task.FromResult(token),
+                            ThrowOnCancel = true,
+                        })
+                    .Child($"{fireBaseFolder}/{fileName}")
+                    .PutAsync(stream);
+                // task.Progress.ProgressChanged += (s, e) => Console.WriteLine($"Progress: {e.Percentage} %");
+                await task;
+                // Console.WriteLine($"OK     :{fileName}");
+                // Console.WriteLine(downloadUrl);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"ERRO   :{fileName}");
+                await WriterCsv.AppendInLogFile($"monster", $"{fireBaseFolder},{fileName},notFound");
+            }
         }
     }
 }
