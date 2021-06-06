@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RagnaLib.Domain.Entities;
@@ -8,10 +9,9 @@ using RagnaLib.Domain.Services;
 namespace RagnaLib.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ItemController : ControllerBase
     {
-        
         private readonly IItemRepository _repo;
         private readonly IItemService _service;
         private readonly ILogger<ItemController> _logger;
@@ -23,20 +23,21 @@ namespace RagnaLib.API.Controllers
             _service = service;
             _logger = logger;
         }
-        
-        
+
+
         [HttpGet]
         [Route("")]
-        public List<Item> Get()
+        public async Task<ActionResult<List<Item>>> Get()
         {
-            return _repo.GetAll();
+            return Ok(await _repo.GetAll());
+
         }
 
         [HttpGet]
         [Route("{id}")]
-        public Item GetById(int id)
+        public async Task<ActionResult<Item>> GetById(int id)
         {
-            return _repo.GetById(id);
+            return Ok(await _repo.GetById(id));
         }
     }
 }
