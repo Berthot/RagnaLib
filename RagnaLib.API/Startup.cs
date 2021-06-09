@@ -1,4 +1,5 @@
 using System;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using RagnaLib.API.AutoMapper;
 using RagnaLib.Application.Factory;
 using RagnaLib.Application.Services;
 using RagnaLib.Domain.Bases.Interfaces;
@@ -33,12 +35,21 @@ namespace RagnaLib.API
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "RagnaLibAPI", Version = "v1"});
             });
             services.AddDbContext<Context>(options => 
-                options.UseNpgsql(Environment.GetEnvironmentVariable("RAG") ?? string.Empty)
+                options.UseNpgsql(Environment.GetEnvironmentVariable("RAG_LOCAL") ?? string.Empty)
             );
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
 
+            var autoMapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AllowNullCollections = true;
+                cfg.AddProfile(new AutoMapperMonster());
+            });
+
+            var mapper = autoMapperConfig.CreateMapper();
+            
+            services.AddSingleton(mapper);
             
             services.AddTransient<IMonsterRepository, MonsterRepository>();
             services.AddTransient<IItemRepository, ItemRepository>();
