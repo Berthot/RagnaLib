@@ -1,21 +1,10 @@
-using System;
-using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using RagnaLib.API.AutoMapper;
 using RagnaLib.API.Extensions;
-using RagnaLib.Application.Factory;
-using RagnaLib.Application.Services;
-using RagnaLib.Domain.Bases.Interfaces;
-using RagnaLib.Domain.Repositories;
-using RagnaLib.Domain.Services;
-using RagnaLib.Infra.Data;
-using RagnaLib.Infra.Repositories;
 
 namespace RagnaLib.API
 {
@@ -31,13 +20,13 @@ namespace RagnaLib.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "RagnaLibAPI", Version = "v1"});
             });
-            services.AddDbContext<Context>(options => 
-                options.UseNpgsql(Environment.GetEnvironmentVariable("RAG_LOCAL") ?? string.Empty)
-            );
+            
+            services.AddDbConnection("RAG_LOCAL");
             
             services.AddAutoMapper();
             
