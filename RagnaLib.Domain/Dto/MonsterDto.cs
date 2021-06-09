@@ -11,7 +11,7 @@ namespace RagnaLib.Domain.Dto
         [JsonPropertyName("DatabaseName")] public string DbName { get; set; }
         public int Level { get; set; }
         public int Health { get; set; }
-        public int Size { get; set; }
+        public string Size { get; set; }
         public string GifUrl { get; set; }
         public bool IsMvp { get; set; }
         public string Scale { get; set; }

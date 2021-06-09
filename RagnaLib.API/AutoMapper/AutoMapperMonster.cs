@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using RagnaLib.Domain.Dto;
 using RagnaLib.Domain.Dto.Monster;
@@ -29,7 +32,6 @@ namespace RagnaLib.API.AutoMapper
                     opt.MapFrom(src => src.Item.Name));
 
 
-
             CreateMap<MonsterItemMap, MonsterDropsDto>()
                 .ForMember(dest => dest.ImageUrl, opt =>
                     opt.MapFrom(src => src.Item.ImageUrl))
@@ -53,7 +55,6 @@ namespace RagnaLib.API.AutoMapper
                 .ForMember(dest => dest.MapCleanUrl, opt =>
                     opt.MapFrom(src => src.Location.MapCleanUrl));
 
-
             CreateMap<Monster, MonsterDto>()
                 .ForMember(dest => dest.PhysicalAttack, opt =>
                     opt.MapFrom(src =>
@@ -66,7 +67,7 @@ namespace RagnaLib.API.AutoMapper
                 .ForMember(dest => dest.MagicDefense, opt =>
                     opt.MapFrom(src => src.Defense.MagicDefense))
                 .ForMember(dest => dest.Race, opt =>
-                    opt.MapFrom(src => src.Race.Name))
+                    opt.MapFrom(src => Captalize(src.Race.Name)))
                 .ForMember(dest => dest.Scale, opt =>
                     opt.MapFrom(src => src.Scale.Name))
                 .ForMember(dest => dest.Element, opt =>
@@ -83,7 +84,27 @@ namespace RagnaLib.API.AutoMapper
                     opt.MapFrom(src => src.PrimaryAttribute))
                 .ForMember(dest => dest.SecondaryStats, opt =>
                     opt.MapFrom(src => src.SecondaryAttribute))
+                .ForMember(dest => dest.Size, opt =>
+                    opt.MapFrom(src => GetSizeName(src.Size)))
                 ;
+        }
+
+        private static string Captalize(string text)
+        {
+            return $"{text[..1].ToUpper()}{text[1..]}";
+        }
+
+        private static string GetSizeName(int value)
+        {
+            try
+            {
+                var sizes = new List<string>() {"Small", "Medium", "Large"};
+                return sizes[value];
+            }
+            catch (Exception)
+            {
+                return "ERROR";
+            }
         }
     }
 }

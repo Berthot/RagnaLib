@@ -41,7 +41,7 @@ namespace RagnaLib.API.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
-        public async Task<ActionResult<Monster>> GetById(int id)
+        public async Task<ActionResult<MonsterDto>> GetById(int id)
         {
             var monster = await _service.GetMonsterById(id);
             if (monster == null)
