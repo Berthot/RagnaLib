@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RagnaLib.API.AutoMapper;
+using RagnaLib.API.Extensions;
 using RagnaLib.Application.Factory;
 using RagnaLib.Application.Services;
 using RagnaLib.Domain.Bases.Interfaces;
@@ -37,30 +38,14 @@ namespace RagnaLib.API
             services.AddDbContext<Context>(options => 
                 options.UseNpgsql(Environment.GetEnvironmentVariable("RAG_LOCAL") ?? string.Empty)
             );
-            services.AddControllers().AddNewtonsoftJson(options =>
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
-
-            var autoMapperConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.AllowNullCollections = true;
-                cfg.AddProfile(new AutoMapperMonster());
-            });
-
-            var mapper = autoMapperConfig.CreateMapper();
             
-            services.AddSingleton(mapper);
+            services.AddAutoMapper();
             
-            services.AddTransient<IMonsterRepository, MonsterRepository>();
-            services.AddTransient<IItemRepository, ItemRepository>();
+            services.AddServices();
             
-            services.AddTransient<IItemService, ItemService>();
-            services.AddTransient<IMonsterService, MonsterService>();
+            services.AddRepositories();
             
-            services.AddTransient<MonsterFactory>();
-            services.AddTransient<ItemFactory>();
-            
-            
+            services.AddFactory();
             
         }
 
