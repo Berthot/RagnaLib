@@ -10,6 +10,8 @@ namespace RagnaLib.Domain.Repositories
         Task<List<Scale>> GetMonsterScales();
         Task<List<Race>> GetRaces();
         Task<List<Element>> GetElements();
-
+        Task<List<MonsterPerLocationMap>> GetLocationsByMonsterId(int id);
+        Task<List<MonsterItemMap>> GetDrop(int id);
+        Task<List<MonsterMvpDropMap>> GetMvpDrop(int id);
     }
 }

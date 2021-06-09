@@ -47,7 +47,7 @@ namespace RagnaLib.Infra.Data
         {
             // var dbConn = Configuration.GetConnectionString("MySql");
             // optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("RAGNAROK") ?? "");
-            optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("RAG") ?? "");
+            optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("RAG_LOCAL") ?? "");
         }
     }
 }

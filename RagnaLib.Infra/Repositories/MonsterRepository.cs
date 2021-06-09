@@ -19,20 +19,14 @@ namespace RagnaLib.Infra.Repositories
 
         public async Task<Monster> GetById(int id)
         {
-            var y = await _context
+            return await _context
                 .Monsters
                 .AsNoTracking()
                 .AsQueryable()
                 .Include(x => x.Scale)
                 .Include(x => x.Element)
                 .Include(x => x.Race)
-                .Include(x => x.MonsterPerLocationMaps)
-                .Include(x => x.MonsterMvpDropMaps)
-                .Include(x => x.MonsterItemMaps)
                 .FirstOrDefaultAsync(x => x.Id == id);
-            
-            return y;
-
         }
 
         public async Task<List<Monster>> GetAll()
@@ -55,6 +49,29 @@ namespace RagnaLib.Infra.Repositories
         public Task<List<Element>> GetElements()
         {
             throw new System.NotImplementedException();
+        }
+
+        public async Task<List<MonsterPerLocationMap>> GetLocationsByMonsterId(int id)
+        {
+            return await _context.MonsterPerLocationMaps
+                .Include(x => x.Location)
+                .Where(x => x.MonsterId == id).ToListAsync();
+        }
+
+        public async Task<List<MonsterItemMap>> GetDrop(int id)
+        {
+            return await _context.MonsterItemMaps
+                .Include(x => x.Item)
+                    .ThenInclude(x => x.ItemType)
+                .Where(x => x.MonsterId == id).ToListAsync();
+        }
+
+        public async Task<List<MonsterMvpDropMap>> GetMvpDrop(int id)
+        {
+            return await _context.MonsterMvpDropMaps
+                .Include(x => x.Item)
+                    .ThenInclude(x => x.ItemType)
+                .Where(x => x.MonsterId == id).ToListAsync();
         }
     }
 }
