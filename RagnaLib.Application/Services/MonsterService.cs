@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using RagnaLib.Application.Factory;
@@ -28,7 +29,15 @@ namespace RagnaLib.Application.Services
 
         public async Task<Monster> GetMonsterById(int id)
         {
-            return await _repo.GetById(id);
+            var monster = await _repo.GetById(id);
+
+            var locations = await _repo.GetLocationsByMonsterId(id);
+            var drops = await _repo.GetDrop(id);
+            var mvpDrops = await _repo.GetMvpDrop(id);
+            monster.MonsterPerLocationMaps = locations;
+            monster.MonsterMvpDropMaps = mvpDrops;
+            monster.MonsterItemMaps = drops;
+            return monster;
         }
     }
 }

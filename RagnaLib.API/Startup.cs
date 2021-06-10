@@ -1,18 +1,10 @@
-using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using RagnaLib.Application.Factory;
-using RagnaLib.Application.Services;
-using RagnaLib.Domain.Bases.Interfaces;
-using RagnaLib.Domain.Repositories;
-using RagnaLib.Domain.Services;
-using RagnaLib.Infra.Data;
-using RagnaLib.Infra.Repositories;
+using RagnaLib.API.Extensions;
 
 namespace RagnaLib.API
 {
@@ -28,28 +20,21 @@ namespace RagnaLib.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "RagnaLibAPI", Version = "v1"});
             });
-            services.AddDbContext<Context>(options => 
-                options.UseNpgsql(Environment.GetEnvironmentVariable("RAG") ?? string.Empty)
-            );
-            services.AddControllers().AddNewtonsoftJson(options =>
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
-
             
-            services.AddTransient<IMonsterRepository, MonsterRepository>();
-            services.AddTransient<IItemRepository, ItemRepository>();
+            services.AddDbConnection("RAG_LOCAL");
             
-            services.AddTransient<IItemService, ItemService>();
-            services.AddTransient<IMonsterService, MonsterService>();
+            services.AddAutoMapper();
             
-            services.AddTransient<MonsterFactory>();
-            services.AddTransient<ItemFactory>();
+            services.AddServices();
             
+            services.AddRepositories();
             
+            services.AddFactory();
             
         }
 
