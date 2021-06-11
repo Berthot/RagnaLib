@@ -13,5 +13,6 @@ namespace RagnaLib.Domain.Repositories
         Task<List<MonsterPerLocationMap>> GetLocationsByMonsterId(int id);
         Task<List<MonsterItemMap>> GetDrop(int id);
         Task<List<MonsterMvpDropMap>> GetMvpDrop(int id);
+        Task<Monster> TestById(int id);
     }
 }

@@ -29,14 +29,16 @@ namespace RagnaLib.Application.Services
 
         public async Task<Monster> GetMonsterById(int id)
         {
+            // var monster = await _repo.GetById(id);
+            //
+            // var locations = await _repo.GetLocationsByMonsterId(id);
+            // var drops = await _repo.GetDrop(id);
+            // var mvpDrops = await _repo.GetMvpDrop(id);
+            // monster.MonsterPerLocationMaps = locations;
+            // monster.MonsterMvpDropMaps = mvpDrops;
+            // monster.MonsterItemMaps = drops;
             var monster = await _repo.GetById(id);
-
-            var locations = await _repo.GetLocationsByMonsterId(id);
-            var drops = await _repo.GetDrop(id);
-            var mvpDrops = await _repo.GetMvpDrop(id);
-            monster.MonsterPerLocationMaps = locations;
-            monster.MonsterMvpDropMaps = mvpDrops;
-            monster.MonsterItemMaps = drops;
+            
             return monster;
         }
     }
