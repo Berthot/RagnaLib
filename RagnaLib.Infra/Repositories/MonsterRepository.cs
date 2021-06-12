@@ -22,7 +22,7 @@ namespace RagnaLib.Infra.Repositories
             return await _context
                 .Monsters
                 .AsNoTracking()
-                .AsQueryable()
+                .AsSingleQuery()
                 .Include(x => x.Scale)
                 .Include(x => x.Element)
                 .Include(x => x.Race)
