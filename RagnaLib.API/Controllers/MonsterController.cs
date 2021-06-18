@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using RagnaLib.Domain.Dto;
 using RagnaLib.Domain.Entities;
@@ -15,17 +17,17 @@ namespace RagnaLib.API.Controllers
     public class MonsterController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IMonsterRepository _repo;
+        private readonly IMemoryCache _memoryCache;
         private readonly IMonsterService _service;
         private readonly ILogger<MonsterController> _logger;
 
 
-        public MonsterController(IMonsterRepository repo, IMonsterService service, ILogger<MonsterController> logger, IMapper mapper)
+        public MonsterController(IMonsterService service, ILogger<MonsterController> logger, IMapper mapper, IMemoryCache memoryCache)
         {
-            _repo = repo;
             _service = service;
             _logger = logger;
             _mapper = mapper;
+            _memoryCache = memoryCache;
         }
 
         [HttpGet]
@@ -43,13 +45,29 @@ namespace RagnaLib.API.Controllers
         [Route("{id:int}")]
         public async Task<ActionResult<MonsterDto>> GetById(int id)
         {
-            var monster = await _service.GetMonsterById(id);
-            if (monster == null)
-                return NotFound("Monstro não encontrado");
+            try
+            {
+                var cacheKey = $"Monster-{id.ToString()}";
+                if (_memoryCache.TryGetValue(cacheKey, out MonsterDto mapped)) return Ok(mapped);
 
-            var mapped = _mapper.Map<MonsterDto>(monster);
+                var monster = await _service.GetMonsterById(id);
+            
+                if (monster == null)
+                    return NotFound("Monstro não encontrado");
 
-            return Ok(mapped);
+                mapped = _mapper.Map<MonsterDto>(monster);
+            
+                _memoryCache.Set(cacheKey, mapped, TimeSpan.FromDays(2));
+                // ReSharper disable once TemplateIsNotCompileTimeConstantProblem
+                _logger.LogInformation($"Request {Request?.Method}: {Request?.Path.Value}");
+
+                return Ok(mapped);
+            }
+            catch (Exception e)
+            {
+                return BadRequest("Erro ao captar um monstro");
+            }
+
         }
     }
 }

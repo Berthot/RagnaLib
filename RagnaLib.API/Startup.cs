@@ -25,6 +25,8 @@ namespace RagnaLib.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "RagnaLibAPI", Version = "v1"});
             });
+
+            services.AddMemoryCache();
             
             services.AddDbConnection("RAG");
             

@@ -13,7 +13,9 @@ namespace RagnaLib.API.AutoMapper
     {
         public AutoMapperMonster()
         {
-            CreateMap<Element, ElementDto>();
+            CreateMap<Element, ElementDto>()
+                .ForMember(dest => dest.Name, opt =>
+                    opt.MapFrom(src => Captalize(src.Name)));
             CreateMap<Experience, ExperienceDto>()
                 .ForMember(dest => dest.Mvp, opt =>
                     opt.MapFrom(x => x.Job - x.Job));
