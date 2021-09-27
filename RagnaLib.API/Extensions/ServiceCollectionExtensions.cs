@@ -14,7 +14,7 @@ namespace RagnaLib.API.Extensions
     {
         public static void AddDbConnection(this IServiceCollection services, string connString){
             var contextOptions = new DbContextOptionsBuilder<Context>()
-                .UseNpgsql(Environment.GetEnvironmentVariable("DB") ?? string.Empty)
+                .UseNpgsql(Environment.GetEnvironmentVariable(connString) ?? string.Empty)
                 .Options;
 
             services.AddTransient(_ => new Context(contextOptions));
