@@ -28,7 +28,7 @@ namespace RagnaLib.API
 
             services.AddMemoryCache();
             
-            services.AddDbConnection("RAG");
+            services.AddDbConnection("DB");
             
             services.AddAutoMapper();
             

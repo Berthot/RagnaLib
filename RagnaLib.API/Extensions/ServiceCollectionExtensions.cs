@@ -13,10 +13,11 @@ namespace RagnaLib.API.Extensions
     public static class ServiceCollectionExtensions
     {
         public static void AddDbConnection(this IServiceCollection services, string connString){
-            // services.AddScoped<IMessageRepository, MessageRepository>();
-            services.AddDbContext<Context>(options => 
-                options.UseNpgsql(Environment.GetEnvironmentVariable(connString) ?? string.Empty)
-            );
+            var contextOptions = new DbContextOptionsBuilder<Context>()
+                .UseNpgsql(Environment.GetEnvironmentVariable("DB") ?? string.Empty)
+                .Options;
+
+            services.AddTransient(_ => new Context(contextOptions));
         }
         
         public static void AddRepositories(this IServiceCollection services){

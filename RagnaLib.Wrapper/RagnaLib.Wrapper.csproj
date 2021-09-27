@@ -24,8 +24,4 @@
       <ProjectReference Include="..\RagnaLib.Infra\RagnaLib.Infra.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <None Remove="Resources\ragnarok_public_Item.csv" />
-    </ItemGroup>
-
 </Project>
