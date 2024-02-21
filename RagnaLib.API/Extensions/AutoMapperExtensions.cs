@@ -8,14 +8,14 @@ public static class AutoMapperExtensions
 {
     public static void AddAutoMapper(this IServiceCollection services){
             
-            var autoMapperConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.AllowNullCollections = true;
-                cfg.AddProfile(new AutoMapperMonster());
-            });
+        var autoMapperConfig = new MapperConfiguration(cfg =>
+        {
+            cfg.AllowNullCollections = true;
+            cfg.AddProfile(new AutoMapperMonster());
+        });
 
-            var mapper = autoMapperConfig.CreateMapper();
+        var mapper = autoMapperConfig.CreateMapper();
             
-            services.AddSingleton(mapper);
-        }
+        services.AddSingleton(mapper);
+    }
 }

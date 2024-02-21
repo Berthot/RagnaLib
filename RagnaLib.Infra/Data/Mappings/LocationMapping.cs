@@ -8,26 +8,26 @@ public static class LocationMapping
 {
     public static void MappingLocation(this EntityTypeBuilder<Location> entity)
     {
-            entity.HasKey(x => x.Id)
-                .HasName("PK_LOCATION");
-            entity.ToTable("Location");
+        entity.HasKey(x => x.Id)
+            .HasName("PK_LOCATION");
+        entity.ToTable("Location");
 
-            entity.Property(x => x.Id)
-                .ValueGeneratedOnAdd()
-                .UseIdentityColumn();
+        entity.Property(x => x.Id)
+            .ValueGeneratedOnAdd()
+            .UseIdentityColumn();
 
-            entity.Property(x => x.NameId)
-                .IsRequired();
+        entity.Property(x => x.NameId)
+            .IsRequired();
 
-            entity.Property(x => x.Name)
-                .IsRequired();
+        entity.Property(x => x.Name)
+            .IsRequired();
 
-            entity.Property(x => x.Type);
+        entity.Property(x => x.Type);
 
-            entity.Property(x => x.MapUrl);
+        entity.Property(x => x.MapUrl);
 
-            entity.Property(x => x.MapCleanUrl);
-        }
+        entity.Property(x => x.MapCleanUrl);
+    }
 
     // public string Name { get; set; }
     // public string Id { get; set; }

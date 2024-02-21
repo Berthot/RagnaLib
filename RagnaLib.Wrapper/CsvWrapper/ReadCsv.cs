@@ -16,21 +16,21 @@ public class ReadCsv
 
     public List<T> ReadDynamicClass<T>(string fileName)
     {
-            try
-            {
-                var path = Path.Combine(_resourcePath, fileName);
-                using var reader = new StreamReader(path);
-                using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-                var records = csv.GetRecords<T>();
-                return records.ToList();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"ERRO ao ler o path [ {_resourcePath} ] + [ {fileName} ]");
-                Process.GetCurrentProcess().Kill();
-                throw;
-            }
+        try
+        {
+            var path = Path.Combine(_resourcePath, fileName);
+            using var reader = new StreamReader(path);
+            using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+            var records = csv.GetRecords<T>();
+            return records.ToList();
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ERRO ao ler o path [ {_resourcePath} ] + [ {fileName} ]");
+            Process.GetCurrentProcess().Kill();
+            throw;
+        }
+    }
 
 
 }

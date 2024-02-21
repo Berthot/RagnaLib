@@ -12,58 +12,58 @@ public class Startup
 {
     public Startup(IConfiguration configuration)
     {
-            Configuration = configuration;
-        }
+        Configuration = configuration;
+    }
 
     public IConfiguration Configuration { get; }
 
     public void ConfigureServices(IServiceCollection services)
     {
-            services.AddControllers();
+        services.AddControllers();
             
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "RagnaLibAPI", Version = "v1"});
-            });
+        services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo {Title = "RagnaLibAPI", Version = "v1"});
+        });
 
-            services.AddMemoryCache();
+        services.AddMemoryCache();
             
-            services.AddDbConnection("DB");
+        services.AddDbConnection("DB");
             
-            services.AddAutoMapper();
+        services.AddAutoMapper();
             
-            services.AddServices();
+        services.AddServices();
             
-            services.AddRepositories();
+        services.AddRepositories();
             
-            services.AddFactory();
+        services.AddFactory();
             
-        }
+    }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RagnaLib.API v1"));
-            }
-            // app.UseStaticFiles(); // imagens
-            
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-            
-            
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-            );
-
-            app.UseAuthorization();
-            // app.UseAuthentication();
-
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RagnaLib.API v1"));
         }
+        // app.UseStaticFiles(); // imagens
+            
+        app.UseHttpsRedirection();
+
+        app.UseRouting();
+            
+            
+        app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+        );
+
+        app.UseAuthorization();
+        // app.UseAuthentication();
+
+        app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+    }
 }

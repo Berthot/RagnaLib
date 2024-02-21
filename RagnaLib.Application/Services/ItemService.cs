@@ -11,7 +11,7 @@ public class ItemService : IItemService
 
     public ItemService(IItemRepository repo, ItemFactory factory)
     {
-            _factory = factory;
-            _repo = repo;
-        }
+        _factory = factory;
+        _repo = repo;
+    }
 }

@@ -9,11 +9,11 @@ public static class DbSeed
     public static void SetSeed(this ModelBuilder builder)
     {
             
-            builder.Entity<ItemType>().HasData(SeedItemType.SeedsItemType());
-            builder.Entity<Race>().HasData(SeedRace.SeedsRace());
-            builder.Entity<SubType>().HasData(SeedItemSubType.SubTypeSeed());
-            builder.Entity<EquipPosition>().HasData(SeedEquipPosition.EquipPositionSeed());
-            builder.Entity<Scale>().HasData(SeedScale.ScaleSeed());
+        builder.Entity<ItemType>().HasData(SeedItemType.SeedsItemType());
+        builder.Entity<Race>().HasData(SeedRace.SeedsRace());
+        builder.Entity<SubType>().HasData(SeedItemSubType.SubTypeSeed());
+        builder.Entity<EquipPosition>().HasData(SeedEquipPosition.EquipPositionSeed());
+        builder.Entity<Scale>().HasData(SeedScale.ScaleSeed());
 
-        }
+    }
 }

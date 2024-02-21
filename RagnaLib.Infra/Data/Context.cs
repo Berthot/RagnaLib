@@ -9,11 +9,11 @@ public class Context : DbContext, IContext
 {
     public Context()
     {
-        }
+    }
 
     public Context(DbContextOptions<Context> builderOptions) : base(builderOptions)
     {
-        }
+    }
 
 
     public DbSet<Element> Elements { get; set; }
@@ -38,15 +38,15 @@ public class Context : DbContext, IContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-            builder.SetMapping();
-            builder.SetSeed();
-            base.OnModelCreating(builder);
-        }
+        builder.SetMapping();
+        builder.SetSeed();
+        base.OnModelCreating(builder);
+    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-            // var dbConn = Configuration.GetConnectionString("MySql");
-            // optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("RAGNAROK") ?? "");
-            // optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("RAG_LOCAL") ?? "");
-        }
+        // var dbConn = Configuration.GetConnectionString("MySql");
+        // optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("RAGNAROK") ?? "");
+        // optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("RAG_LOCAL") ?? "");
+    }
 }

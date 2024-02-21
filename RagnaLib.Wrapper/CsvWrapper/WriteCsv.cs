@@ -14,25 +14,25 @@ public static class WriterCsv
     public static void WriteDynamicCsvByClass<T>(string fileName, List<T> list)
     {
             
-            var path = Path.Combine(ResourcePath, $"{fileName}.csv");
-            using var writer = new StreamWriter(path);
-            using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
-            csv.WriteRecords(list);
-        }
+        var path = Path.Combine(ResourcePath, $"{fileName}.csv");
+        using var writer = new StreamWriter(path);
+        using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+        csv.WriteRecords(list);
+    }
         
     public static async Task AppendInFile(string fileName, string text)
     {
-            var path = Path.Combine(ResourcePath, $"{fileName}.csv");
-            await using var file = new StreamWriter(path, true);
-            await file.WriteLineAsync(text);
-        }
+        var path = Path.Combine(ResourcePath, $"{fileName}.csv");
+        await using var file = new StreamWriter(path, true);
+        await file.WriteLineAsync(text);
+    }
         
     public static async Task AppendInLogFile(string fileName, string text)
     {
-            var path = $"{LogPath}/{fileName}.csv";
-            var file = new StreamWriter(path, true);
-            await file.WriteLineAsync(text);
-        }
+        var path = $"{LogPath}/{fileName}.csv";
+        var file = new StreamWriter(path, true);
+        await file.WriteLineAsync(text);
+    }
 
         
 }
