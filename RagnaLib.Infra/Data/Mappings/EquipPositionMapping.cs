@@ -2,12 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RagnaLib.Domain.Entities;
 
-namespace RagnaLib.Infra.Data.Mappings
+namespace RagnaLib.Infra.Data.Mappings;
+
+public static class EquipPositionMapping
 {
-    public static class EquipPositionMapping
+    public static void MappingEquipPosition(this EntityTypeBuilder<EquipPosition> entity)
     {
-        public static void MappingEquipPosition(this EntityTypeBuilder<EquipPosition> entity)
-        {
             
             entity.HasKey(x => x.Id)
                 .HasName("PK_EQUIP_POSITION");
@@ -21,5 +21,4 @@ namespace RagnaLib.Infra.Data.Mappings
 
             entity.Property(x => x.Description);
         }
-    }
 }

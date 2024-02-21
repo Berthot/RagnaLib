@@ -2,12 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RagnaLib.Domain.Entities;
 
-namespace RagnaLib.Infra.Data.Mappings
+namespace RagnaLib.Infra.Data.Mappings;
+
+public static class MonsterItemMapMapping
 {
-    public static class MonsterItemMapMapping
+    public static void MappingMonsterItemMap(this EntityTypeBuilder<MonsterItemMap> entity)
     {
-        public static void MappingMonsterItemMap(this EntityTypeBuilder<MonsterItemMap> entity)
-        {
             entity.HasKey(x => x.Id)
                 .HasName("PK_MONSTER_ITEM_MAP");
             entity.ToTable("MonsterItemMap");
@@ -34,5 +34,4 @@ namespace RagnaLib.Infra.Data.Mappings
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_MOSTERITEMMAP_ITEM");
         }
-    }
 }

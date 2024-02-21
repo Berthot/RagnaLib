@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using RagnaLib.Domain.Entities;
 
-namespace RagnaLib.Infra.Data.Seeds
+namespace RagnaLib.Infra.Data.Seeds;
+
+public static class SeedItemType
 {
-    public static class SeedItemType
+    public static List<ItemType> SeedsItemType()
     {
-        public static List<ItemType> SeedsItemType()
-        {
             return new List<ItemType>()
             {
                 new ItemType() {Id = -1, Name = "Unknown"},                
@@ -57,5 +57,4 @@ namespace RagnaLib.Infra.Data.Seeds
                 }
             };
         }
-    }
 }

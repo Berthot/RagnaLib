@@ -2,12 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RagnaLib.Domain.Entities;
 
-namespace RagnaLib.Infra.Data.Mappings
+namespace RagnaLib.Infra.Data.Mappings;
+
+public static class ItemEquipPositionMapMapping
 {
-    public static class ItemEquipPositionMapMapping
+    public static void MappingItemEquipPositionMap(this EntityTypeBuilder<ItemEquipPositionMap> entity)
     {
-        public static void MappingItemEquipPositionMap(this EntityTypeBuilder<ItemEquipPositionMap> entity)
-        {
 
             entity.HasKey(x => x.Id)
                 .HasName("PK_ITEM_EQUIP_POSITION_MAP");
@@ -29,7 +29,6 @@ namespace RagnaLib.Infra.Data.Mappings
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_ITEMEQUIPPOSITIONMAP_EQUIPEPOSITION");
         }
-    }
 }
 
 // public int Id { get; set; }

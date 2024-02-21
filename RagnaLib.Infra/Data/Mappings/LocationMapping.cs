@@ -2,12 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RagnaLib.Domain.Entities;
 
-namespace RagnaLib.Infra.Data.Mappings
+namespace RagnaLib.Infra.Data.Mappings;
+
+public static class LocationMapping
 {
-    public static class LocationMapping
+    public static void MappingLocation(this EntityTypeBuilder<Location> entity)
     {
-        public static void MappingLocation(this EntityTypeBuilder<Location> entity)
-        {
             entity.HasKey(x => x.Id)
                 .HasName("PK_LOCATION");
             entity.ToTable("Location");
@@ -29,10 +29,9 @@ namespace RagnaLib.Infra.Data.Mappings
             entity.Property(x => x.MapCleanUrl);
         }
 
-        // public string Name { get; set; }
-        // public string Id { get; set; }
-        // public string MapUrl { get; set; } // https://www.divine-pride.net/img/map/original/gef_fild10
-        // public string MapCleanUrl { get; set; } // https://www.divine-pride.net/img/map/raw/gef_fild10
-        // public IEnumerable<Monster> Monsters { get; set; }
-    }
+    // public string Name { get; set; }
+    // public string Id { get; set; }
+    // public string MapUrl { get; set; } // https://www.divine-pride.net/img/map/original/gef_fild10
+    // public string MapCleanUrl { get; set; } // https://www.divine-pride.net/img/map/raw/gef_fild10
+    // public IEnumerable<Monster> Monsters { get; set; }
 }

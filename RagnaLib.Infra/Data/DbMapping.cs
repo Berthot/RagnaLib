@@ -2,12 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using RagnaLib.Domain.Entities;
 using RagnaLib.Infra.Data.Mappings;
 
-namespace RagnaLib.Infra.Data
+namespace RagnaLib.Infra.Data;
+
+public static class DbMapping
 {
-    public static class DbMapping
+    public static void SetMapping(this ModelBuilder builder)
     {
-        public static void SetMapping(this ModelBuilder builder)
-        {
             builder.Entity<Element>().MappingElement();
             builder.Entity<Item>().MappingItem();
             builder.Entity<ItemType>().MappingItemType();
@@ -20,5 +20,4 @@ namespace RagnaLib.Infra.Data
             builder.Entity<ItemEquipPositionMap>().MappingItemEquipPositionMap();
         }
         
-    }
 }

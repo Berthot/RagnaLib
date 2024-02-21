@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using RagnaLib.Domain.Entities;
 
-namespace RagnaLib.Infra.Data.Seeds
-{
-    public static class SeedRace
-    {
+namespace RagnaLib.Infra.Data.Seeds;
 
-        public static List<Race> SeedsRace()
-        {
+public static class SeedRace
+{
+
+    public static List<Race> SeedsRace()
+    {
             return new List<Race>()
             {
                 new Race() {Id = 1 , Name = "amorfo", EnName = "formless"},
@@ -24,5 +24,4 @@ namespace RagnaLib.Infra.Data.Seeds
                 new Race() {Id = 12 , Name = "humano", EnName = "null"},
             };
         }
-    }
 }

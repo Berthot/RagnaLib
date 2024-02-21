@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using RagnaLib.Domain.Entities;
 
-namespace RagnaLib.Infra.Data.Seeds
+namespace RagnaLib.Infra.Data.Seeds;
+
+public static class SeedItemSubType
 {
-    public static class SeedItemSubType
+    public static IEnumerable<SubType> SubTypeSeed()
     {
-        public static IEnumerable<SubType> SubTypeSeed()
-        {
             return new List<SubType>()
             {
                 new SubType() {Id = -1, Name = "Unknown", Location = "-"},
@@ -59,5 +59,4 @@ namespace RagnaLib.Infra.Data.Seeds
                 new SubType() {Id = 47, Name = "Costume Helm", Location = "Upper Costume Headgear"},
             };
         }
-    }
 }

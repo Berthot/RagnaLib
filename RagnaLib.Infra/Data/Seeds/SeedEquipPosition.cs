@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using RagnaLib.Domain.Entities;
 
-namespace RagnaLib.Infra.Data.Seeds
+namespace RagnaLib.Infra.Data.Seeds;
+
+public static class SeedEquipPosition
 {
-    public static class SeedEquipPosition
+    public static IEnumerable<EquipPosition> EquipPositionSeed()
     {
-        public static IEnumerable<EquipPosition> EquipPositionSeed()
-        {
             return new List<EquipPosition>()
             {
                 new EquipPosition()  {Id = -1, Position = "Unknown", Description = "-"},
@@ -43,5 +43,4 @@ namespace RagnaLib.Infra.Data.Seeds
                 new EquipPosition()  {Id = 31, Position = "Enchant", Description = "Enchant"},
             };
         }
-    }
 }

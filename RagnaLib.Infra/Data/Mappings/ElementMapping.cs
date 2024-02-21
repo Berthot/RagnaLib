@@ -2,12 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RagnaLib.Domain.Entities;
 
-namespace RagnaLib.Infra.Data.Mappings
+namespace RagnaLib.Infra.Data.Mappings;
+
+public static class ElementMapping
 {
-    public static class ElementMapping
+    public static void MappingElement(this EntityTypeBuilder<Element> entity)
     {
-        public static void MappingElement(this EntityTypeBuilder<Element> entity)
-        {
             entity.HasKey(x => x.Id)
                 .HasName("PK_ELEMENT");
             entity.ToTable("Element");
@@ -51,5 +51,4 @@ namespace RagnaLib.Infra.Data.Mappings
             entity.Property(x => x.Undead)
                 .IsRequired();
         }
-    }
 }

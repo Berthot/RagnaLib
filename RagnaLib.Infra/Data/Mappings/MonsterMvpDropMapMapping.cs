@@ -2,12 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RagnaLib.Domain.Entities;
 
-namespace RagnaLib.Infra.Data.Mappings
+namespace RagnaLib.Infra.Data.Mappings;
+
+public static class MonsterMvpDropMapMapping
 {
-    public static class MonsterMvpDropMapMapping
+    public static void MappingMonsterMvpDropMap(this EntityTypeBuilder<MonsterMvpDropMap> entity)
     {
-        public static void MappingMonsterMvpDropMap(this EntityTypeBuilder<MonsterMvpDropMap> entity)
-        {
 
             entity.HasKey(x => x.Id)
                 .HasName("PK_MONSTER_MVP_DROP_MAP");
@@ -33,5 +33,4 @@ namespace RagnaLib.Infra.Data.Mappings
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_MONSTERMVPDROPMAP_ITEM");
         }
-    }
 }

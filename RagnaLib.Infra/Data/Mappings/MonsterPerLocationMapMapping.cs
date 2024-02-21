@@ -2,12 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RagnaLib.Domain.Entities;
 
-namespace RagnaLib.Infra.Data.Mappings
+namespace RagnaLib.Infra.Data.Mappings;
+
+public static class MonsterPerLocationMapMapping
 {
-    public static class MonsterPerLocationMapMapping
+    public static void MappingMonsterPerLocationMap(this EntityTypeBuilder<MonsterPerLocationMap> entity)
     {
-        public static void MappingMonsterPerLocationMap(this EntityTypeBuilder<MonsterPerLocationMap> entity)
-        {
             entity.HasKey(x => x.Id)
                 .HasName("PK_MONSTER_PER_LOCATION_MAP");
             entity.ToTable("MonsterPerLocationMap");
@@ -34,5 +34,4 @@ namespace RagnaLib.Infra.Data.Mappings
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("FK_MONSTERPERLOCATION_LOCATION");
         }
-    }
 }

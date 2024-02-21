@@ -2,12 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RagnaLib.Domain.Entities;
 
-namespace RagnaLib.Infra.Data.Mappings
+namespace RagnaLib.Infra.Data.Mappings;
+
+public static class ItemTypeMapping
 {
-    public static class ItemTypeMapping
+    public static void MappingItemType(this EntityTypeBuilder<ItemType> entity)
     {
-        public static void MappingItemType(this EntityTypeBuilder<ItemType> entity)
-        {
             entity.HasKey(x => x.Id)
                 .HasName("PK_ITEM_TYPE");
             entity.ToTable("ItemType");
@@ -19,9 +19,8 @@ namespace RagnaLib.Infra.Data.Mappings
                 .IsRequired();
 
         }
-    }
-
-    // public int Id { get; set; }
-    // public string Name { get; set; }
-    // public SubType SubType { get; set; }
 }
+
+// public int Id { get; set; }
+// public string Name { get; set; }
+// public SubType SubType { get; set; }
