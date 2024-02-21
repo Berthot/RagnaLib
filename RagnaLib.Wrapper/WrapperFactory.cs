@@ -2,12 +2,12 @@ using RagnaLib.Domain.Entities;
 using RagnaLib.Domain.ValueObjects;
 using RagnaLib.Wrapper.CsvWrapper.CsvModels;
 
-namespace RagnaLib.Wrapper
+namespace RagnaLib.Wrapper;
+
+public class WrapperFactory
 {
-    public class WrapperFactory
+    public Element GetElementModel(CsvElement csv)
     {
-        public Element GetElementModel(CsvElement csv)
-        {
             return new Element()
             {
                 Id = csv.Id,
@@ -26,8 +26,8 @@ namespace RagnaLib.Wrapper
             };
         }
 
-        public Location GetLocationModel(CsvLocation csv)
-        {
+    public Location GetLocationModel(CsvLocation csv)
+    {
             return new Location()
             {
                 Id = csv.Id,
@@ -39,8 +39,8 @@ namespace RagnaLib.Wrapper
             };
         }
 
-        public Item GetItemModel(CsvItem csv)
-        {
+    public Item GetItemModel(CsvItem csv)
+    {
             return new Item()
             {
                 Id = csv.Id,
@@ -66,8 +66,8 @@ namespace RagnaLib.Wrapper
             };
         }
 
-        public Monster GetMonsterModel(CsvMonster csv)
-        {
+    public Monster GetMonsterModel(CsvMonster csv)
+    {
             return new Monster()
             {
                 Id = csv.Id,
@@ -123,5 +123,4 @@ namespace RagnaLib.Wrapper
                 ScaleId = csv.ScaleId,
             };
         }
-    }
 }

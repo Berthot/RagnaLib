@@ -1,8 +1,7 @@
-namespace RagnaLib.Domain.ValueObjects
+namespace RagnaLib.Domain.ValueObjects;
+
+public class Defense
 {
-    public class Defense
-    {
-        public int MagicDefense { get; set; }
-        public int PhysicalDefense { get; set; }
-    }
+    public int MagicDefense { get; set; }
+    public int PhysicalDefense { get; set; }
 }

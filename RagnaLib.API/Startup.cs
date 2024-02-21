@@ -6,19 +6,19 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RagnaLib.API.Extensions;
 
-namespace RagnaLib.API
+namespace RagnaLib.API;
+
+public class Startup
 {
-    public class Startup
+    public Startup(IConfiguration configuration)
     {
-        public Startup(IConfiguration configuration)
-        {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+    public IConfiguration Configuration { get; }
 
-        public void ConfigureServices(IServiceCollection services)
-        {
+    public void ConfigureServices(IServiceCollection services)
+    {
             services.AddControllers();
             
             services.AddSwaggerGen(c =>
@@ -40,8 +40,8 @@ namespace RagnaLib.API
             
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -66,5 +66,4 @@ namespace RagnaLib.API
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
-    }
 }

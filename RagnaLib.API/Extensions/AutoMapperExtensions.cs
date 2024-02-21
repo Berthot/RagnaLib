@@ -2,11 +2,11 @@ using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using RagnaLib.API.AutoMapper;
 
-namespace RagnaLib.API.Extensions
+namespace RagnaLib.API.Extensions;
+
+public static class AutoMapperExtensions
 {
-    public static class AutoMapperExtensions
-    {
-        public static void AddAutoMapper(this IServiceCollection services){
+    public static void AddAutoMapper(this IServiceCollection services){
             
             var autoMapperConfig = new MapperConfiguration(cfg =>
             {
@@ -18,5 +18,4 @@ namespace RagnaLib.API.Extensions
             
             services.AddSingleton(mapper);
         }
-    }
 }

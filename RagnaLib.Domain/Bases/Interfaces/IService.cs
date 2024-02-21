@@ -1,6 +1,5 @@
-namespace RagnaLib.Domain.Bases.Interfaces
+namespace RagnaLib.Domain.Bases.Interfaces;
+
+public interface IService
 {
-    public interface IService
-    {
-    }
 }

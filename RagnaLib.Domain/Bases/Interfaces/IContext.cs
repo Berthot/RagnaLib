@@ -1,7 +1,6 @@
-namespace RagnaLib.Domain.Bases.Interfaces
+namespace RagnaLib.Domain.Bases.Interfaces;
+
+public interface IContext
 {
-    public interface IContext
-    {
         
-    }
 }

@@ -2,21 +2,21 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="CsvHelper.Excel.Core" Version="22.1.1" />
-      <PackageReference Include="FirebaseAdmin" Version="2.1.0" />
-      <PackageReference Include="FirebaseAuthentication.net" Version="3.7.1" />
+      <PackageReference Include="CsvHelper.Excel.Core" Version="27.2.1" />
+      <PackageReference Include="FirebaseAdmin" Version="2.4.0" />
+      <PackageReference Include="FirebaseAuthentication.net" Version="4.1.0" />
       <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4">
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0-preview.1.24081.2">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="MongoDB.Bson" Version="2.12.0" />
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-      <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.2" />
+      <PackageReference Include="MongoDB.Bson" Version="2.23.2" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+      <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.3-beta1" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,7 +1,6 @@
-namespace RagnaLib.Domain.Services
+namespace RagnaLib.Domain.Services;
+
+public interface IItemService
 {
-    public interface IItemService
-    {
         
-    }
 }

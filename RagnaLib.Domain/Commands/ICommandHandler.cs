@@ -1,7 +1,6 @@
-namespace RagnaLib.Domain.Commands
+namespace RagnaLib.Domain.Commands;
+
+public interface ICommandHandler<T> where T : ICommand
 {
-    public interface ICommandHandler<T> where T : ICommand
-    {
-        ICommandResult Handle(T command);
-    }
+    ICommandResult Handle(T command);
 }

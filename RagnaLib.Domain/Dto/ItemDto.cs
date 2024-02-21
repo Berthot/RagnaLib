@@ -1,7 +1,6 @@
-namespace RagnaLib.Domain.Dto
+namespace RagnaLib.Domain.Dto;
+
+public class ItemDto
 {
-    public class ItemDto
-    {
         
-    }
 }

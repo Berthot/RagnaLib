@@ -1,8 +1,7 @@
-namespace RagnaLib.Domain.ValueObjects
+namespace RagnaLib.Domain.ValueObjects;
+
+public class Experience
 {
-    public class Experience
-    {
-        public int Base { get; set; }
-        public int Job { get; set; }
-    }
+    public int Base { get; set; }
+    public int Job { get; set; }
 }

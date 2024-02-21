@@ -7,15 +7,15 @@ using System.Linq;
 using System.Reflection;
 using CsvHelper;
 
-namespace RagnaLib.Wrapper.CsvWrapper
-{
-    public class ReadCsv
-    {
-        private readonly string _resourcePath =
-            $"{Environment.CurrentDirectory.Split("bin/")[0]}Resources/";
+namespace RagnaLib.Wrapper.CsvWrapper;
 
-        public List<T> ReadDynamicClass<T>(string fileName)
-        {
+public class ReadCsv
+{
+    private readonly string _resourcePath =
+        $"{Environment.CurrentDirectory.Split("bin/")[0]}Resources/";
+
+    public List<T> ReadDynamicClass<T>(string fileName)
+    {
             try
             {
                 var path = Path.Combine(_resourcePath, fileName);
@@ -33,5 +33,4 @@ namespace RagnaLib.Wrapper.CsvWrapper
         }
 
 
-    }
 }

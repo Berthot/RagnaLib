@@ -1,8 +1,7 @@
-namespace RagnaLib.Domain.ValueObjects
+namespace RagnaLib.Domain.ValueObjects;
+
+public class Attack
 {
-    public class Attack
-    {
-        public int MinimalDamage { get; set; }
-        public int MaximumDamage { get; set; }
-    }
+    public int MinimalDamage { get; set; }
+    public int MaximumDamage { get; set; }
 }

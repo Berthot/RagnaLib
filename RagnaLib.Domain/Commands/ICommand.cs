@@ -1,7 +1,6 @@
-namespace RagnaLib.Domain.Commands
+namespace RagnaLib.Domain.Commands;
+
+public interface ICommand
 {
-    public interface ICommand
-    {
-        bool Valid();
-    }
+    bool Valid();
 }
