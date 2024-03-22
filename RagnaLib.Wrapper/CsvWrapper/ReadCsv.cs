@@ -4,12 +4,11 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using CsvHelper;
 
 namespace RagnaLib.Wrapper.CsvWrapper;
 
-public class ReadCsv
+public class ReadCsv : IReadData
 {
     private readonly string _resourcePath =
         $"{Environment.CurrentDirectory.Split("bin/")[0]}Resources/";

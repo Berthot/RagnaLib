@@ -405,3 +405,7 @@ $RECYCLE.BIN/
 *.\Resources\testCSharpCsv.xlsx
 /config.env
 /RagnaLib.Wrapper/Resources/
+/RagnaLib.Wrapper/Files/
+/WrapperDivinePride/Resources/
+/WrapperDivinePride/Resources/*/Resources
+/WrapperDivinePride/Resources/*

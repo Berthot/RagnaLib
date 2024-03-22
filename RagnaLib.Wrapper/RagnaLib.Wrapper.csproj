@@ -10,7 +10,7 @@
       <PackageReference Include="FirebaseAdmin" Version="2.4.0" />
       <PackageReference Include="FirebaseAuthentication.net" Version="4.1.0" />
       <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0-preview.1.24081.2">
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
@@ -20,8 +20,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\RagnaLib.Domain\RagnaLib.Domain.csproj" />
-      <ProjectReference Include="..\RagnaLib.Infra\RagnaLib.Infra.csproj" />
+      <ProjectReference Include="..\Domain\Domain.csproj" />
+      <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Files\" />
+      <Folder Include="Resources\" />
     </ItemGroup>
 
 </Project>
